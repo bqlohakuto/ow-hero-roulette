@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#0b0f18" />
+  <title>OW HERO ROULETTE</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="noise" aria-hidden="true"></div>
+  <main class="app-shell">
+    <header class="hero-header">
+      <div>
+        <p class="eyebrow">OVERWATCH HERO PICK TOOL</p>
+        <h1>OW HERO <span>ROULETTE</span></h1>
+        <p class="subtitle">1〜6人対応 / ROLE指定 / HERO BAN / 重複なし抽選</p>
+      </div>
+      <button id="openBanBtn" class="ban-summary" type="button" aria-haspopup="dialog">
+        <span class="ban-summary__icon">⊘</span>
+        <span><strong id="banCount">0</strong> HEROES BAN</span>
+      </button>
+    </header>
+
+    <section class="control-panel" aria-label="抽選設定">
+      <div class="control-block">
+        <span class="control-label">PLAYERS</span>
+        <div class="stepper" role="group" aria-label="人数">
+          <button id="minusPlayer" type="button" aria-label="人数を減らす">−</button>
+          <strong id="playerCount">5</strong>
+          <button id="plusPlayer" type="button" aria-label="人数を増やす">＋</button>
+        </div>
+      </div>
+
+      <div class="control-block control-block--wide">
+        <span class="control-label">PRESET</span>
+        <div class="preset-row">
+          <button type="button" class="preset-btn active" data-preset="5v5">5v5</button>
+          <button type="button" class="preset-btn" data-preset="6v6">6v6</button>
+          <button type="button" class="preset-btn" data-preset="free">FREE</button>
+        </div>
+      </div>
+
+      <div class="control-block control-block--status">
+        <span class="control-label">AVAILABLE</span>
+        <strong><span id="availableCount">53</span> / <span id="heroTotal">53</span></strong>
+      </div>
+    </section>
+
+    <section id="playerGrid" class="player-grid" aria-live="polite"></section>
+
+    <section class="action-zone">
+      <button id="spinAllBtn" class="spin-button" type="button">
+        <span class="spin-button__ring" aria-hidden="true"></span>
+        <span class="spin-button__content">
+          <span class="spin-button__small">RANDOM PICK</span>
+          <strong>SPIN</strong>
+        </span>
+      </button>
+      <button id="clearResultsBtn" class="ghost-button" type="button">結果をクリア</button>
+    </section>
+
+    <footer>
+      <p>Fan-made utility. Hero names are used only for identification. Character visuals are original symbolic motifs.</p>
+    </footer>
+  </main>
+
+  <dialog id="banDialog" class="ban-dialog">
+    <form method="dialog" class="ban-modal">
+      <header class="ban-modal__header">
+        <div>
+          <p class="eyebrow">HERO BAN</p>
+          <h2>抽選から除外するヒーロー</h2>
+        </div>
+        <button class="icon-button" value="cancel" aria-label="閉じる">×</button>
+      </header>
+
+      <div class="ban-tools">
+        <label class="search-box">
+          <span>⌕</span>
+          <input id="heroSearch" type="search" placeholder="ヒーロー名を検索" autocomplete="off" />
+        </label>
+        <div class="role-filter" role="group" aria-label="ロール絞り込み">
+          <button type="button" class="role-filter-btn active" data-role="all">ALL</button>
+          <button type="button" class="role-filter-btn" data-role="tank">TANK</button>
+          <button type="button" class="role-filter-btn" data-role="damage">DAMAGE</button>
+          <button type="button" class="role-filter-btn" data-role="support">SUPPORT</button>
+        </div>
+      </div>
+
+      <div class="ban-action-row">
+        <span><strong id="modalBanCount">0</strong> heroes banned</span>
+        <div>
+          <button id="banVisibleBtn" type="button" class="text-button">表示中をBAN</button>
+          <button id="clearBanBtn" type="button" class="text-button">全BAN解除</button>
+        </div>
+      </div>
+
+      <section id="banHeroGrid" class="ban-hero-grid"></section>
+
+      <div class="ban-modal__footer">
+        <button class="apply-button" value="default">完了</button>
+      </div>
+    </form>
+  </dialog>
+
+  <template id="playerCardTemplate">
+    <article class="player-card">
+      <div class="player-card__top">
+        <label>
+          <span class="sr-only">プレイヤー名</span>
+          <input class="player-name" type="text" maxlength="18" />
+        </label>
+        <select class="role-select" aria-label="ロール選択">
+          <option value="all">ALL</option>
+          <option value="tank">TANK</option>
+          <option value="damage">DAMAGE</option>
+          <option value="support">SUPPORT</option>
+        </select>
+      </div>
+
+      <div class="result-stage role-all">
+        <div class="role-stripe"></div>
+        <div class="hero-emblem" aria-hidden="true"><span>?</span></div>
+        <div class="result-copy">
+          <span class="role-label">READY</span>
+          <strong class="hero-name">—</strong>
+          <small class="hero-sub">SPIN TO PICK</small>
+        </div>
+      </div>
+
+      <button class="reroll-button" type="button">↻ この枠だけ再抽選</button>
+    </article>
+  </template>
+
+  <script src="app.js"></script>
+</body>
+</html>
