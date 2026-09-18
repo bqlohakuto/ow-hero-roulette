@@ -204,7 +204,7 @@ function updateCard(card, hero, spinningHero = null) {
   }
 
   stage.classList.add(`role-${shown.role}`);
-  emblem.innerHTML = silhouetteSvg(shown);
+  emblem.innerHTML = heroIconSvg(shown);
   roleLabel.textContent = ROLE_LABELS[shown.role];
   heroName.textContent = shown.name;
   heroSub.textContent = hero ? '決定' : '抽選中…';
@@ -272,14 +272,17 @@ async function spinOne(index, existingCard = null) {
 
   state.spinning = true;
   lockControls(true);
-  await animateCard(card, pool, 680);
 
-  const chosen = pickRandom(pool);
-  state.results[index] = chosen;
-  updateCard(card, chosen);
+  try {
+    await animateCard(card, pool, 680);
 
-  state.spinning = false;
-  lockControls(false);
+    const chosen = pickRandom(pool);
+    state.results[index] = chosen;
+    updateCard(card, chosen);
+  } finally {
+    state.spinning = false;
+    lockControls(false);
+  }
 }
 
 async function spinAll() {
@@ -289,29 +292,31 @@ async function spinAll() {
   state.results = Array(6).fill(null);
   lockControls(true);
 
-  const cards = [...els.playerGrid.children];
+  try {
+    const cards = [...els.playerGrid.children];
 
-  const animations = cards.slice(0, state.players).map((card, i) => {
-    const pool = roleHeroes(state.roles[i]).filter(h => !state.banned.has(h.id));
-    return pool.length ? animateCard(card, pool, 620 + i * 55) : Promise.resolve();
-  });
+    const animations = cards.slice(0, state.players).map((card, i) => {
+      const pool = roleHeroes(state.roles[i]).filter(h => !state.banned.has(h.id));
+      return pool.length ? animateCard(card, pool, 620 + i * 55) : Promise.resolve();
+    });
 
-  await Promise.all(animations);
+    await Promise.all(animations);
 
-  for (let i = 0; i < state.players; i++) {
-    const pool = candidatesFor(i, false);
-    if (!pool.length) {
-      flashNoCandidate(cards[i]);
-      continue;
+    for (let i = 0; i < state.players; i++) {
+      const pool = candidatesFor(i, false);
+      if (!pool.length) {
+        flashNoCandidate(cards[i]);
+        continue;
+      }
+
+      const chosen = pickRandom(pool);
+      state.results[i] = chosen;
+      updateCard(cards[i], chosen);
     }
-
-    const chosen = pickRandom(pool);
-    state.results[i] = chosen;
-    updateCard(cards[i], chosen);
+  } finally {
+    state.spinning = false;
+    lockControls(false);
   }
-
-  state.spinning = false;
-  lockControls(false);
 }
 
 function flashNoCandidate(card) {
@@ -349,7 +354,7 @@ function createHeroTile(hero) {
   btn.setAttribute('aria-pressed', String(isBanned));
   btn.innerHTML = `
     <span class="hero-tile__portrait">
-      <span class="hero-tile__icon">${silhouetteSvg(hero)}</span>
+      <span class="hero-tile__icon">${heroIconSvg(hero)}</span>
       <span class="hero-tile__slash"></span>
     </span>
     <strong>${hero.name}</strong>
