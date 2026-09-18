@@ -1,4 +1,4 @@
-const HEROES = [
+const BASE_HEROES = [
   { id: 'dmon', name: 'ディーモン', role: 'tank', icon: '⚔' },
   { id: 'ana', name: 'アナ', role: 'support', icon: '◎' },
   { id: 'anran', name: 'アンラン', role: 'damage', icon: '🔥' },
@@ -54,6 +54,19 @@ const HEROES = [
   { id: 'zenyatta', name: 'ゼニヤッタ', role: 'support', icon: '☸' }
 ];
 
+const NEXT_UPDATE_HEROES = [
+  ...BASE_HEROES.map(hero => hero.id === 'sombra' ? { ...hero, role: 'support' } : hero),
+  { id: 'doctrine', name: 'ドクトリン', role: 'support', icon: '☾' }
+];
+
+const ROSTERS = {
+  current: BASE_HEROES,
+  next: NEXT_UPDATE_HEROES
+};
+
+function currentHeroes() {
+  return ROSTERS[state.version] || BASE_HEROES;
+}
 
 function heroIconSvg(hero) {
   return `<img class="hero-icon-img" src="assets/icons/${hero.id}.svg" alt="" loading="eager" decoding="async">`;
@@ -63,6 +76,7 @@ const ROLE_LABELS = { all: '全ロール', tank: 'タンク', damage: 'ダメー
 const ROLE_ORDER = ['tank', 'damage', 'support'];
 
 const state = {
+  version: localStorage.getItem('owRouletteVersion') === 'next' ? 'next' : 'current',
   players: 5,
   banned: new Set(JSON.parse(localStorage.getItem('owRouletteBans') || '[]')),
   results: Array(6).fill(null),
@@ -88,10 +102,10 @@ const els = {
   modalBanCount: document.querySelector('#modalBanCount'),
   availableCount: document.querySelector('#availableCount'),
   heroTotal: document.querySelector('#heroTotal'),
-  template: document.querySelector('#playerCardTemplate')
+  template: document.querySelector('#playerCardTemplate'),
+  versionBtns: [...document.querySelectorAll('.version-btn')],
+  teamHint: document.querySelector('#teamHint')
 };
-
-els.heroTotal.textContent = HEROES.length;
 
 function randomInt(max) {
   if (max <= 0) return 0;
@@ -105,7 +119,7 @@ function randomInt(max) {
 }
 
 function pickRandom(list) { return list[randomInt(list.length)]; }
-function roleHeroes(role) { return HEROES.filter(h => role === 'all' || h.role === role); }
+function roleHeroes(role) { return currentHeroes().filter(h => role === 'all' || h.role === role); }
 
 function candidatesFor(playerIndex, excludeCurrentPlayer = false) {
   const used = new Set(
@@ -313,7 +327,7 @@ function clearResults() {
 
 function visibleBanHeroes() {
   const q = els.heroSearch.value.trim().toLowerCase();
-  return HEROES.filter(hero => !q || hero.name.toLowerCase().includes(q));
+  return currentHeroes().filter(hero => !q || hero.name.toLowerCase().includes(q));
 }
 
 function createHeroTile(hero) {
@@ -382,9 +396,36 @@ function persistBans() {
 }
 
 function updateCounts() {
-  els.banCount.textContent = state.banned.size;
-  els.modalBanCount.textContent = state.banned.size;
-  els.availableCount.textContent = HEROES.length - state.banned.size;
+  const heroes = currentHeroes();
+  const activeBanCount = heroes.filter(hero => state.banned.has(hero.id)).length;
+  els.banCount.textContent = activeBanCount;
+  els.modalBanCount.textContent = activeBanCount;
+  els.availableCount.textContent = heroes.length - activeBanCount;
+  els.heroTotal.textContent = heroes.length;
+}
+
+function updateVersionUi() {
+  els.versionBtns.forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.version === state.version);
+  });
+
+  if (els.teamHint) {
+    els.teamHint.textContent = state.version === 'next'
+      ? '次回アップデート版 / ドクトリン追加・ソンブラ サポート'
+      : 'ロールを選んで抽選';
+  }
+}
+
+function setVersion(version) {
+  if (!ROSTERS[version] || state.version === version || state.spinning) return;
+
+  state.version = version;
+  localStorage.setItem('owRouletteVersion', version);
+  state.results = Array(6).fill(null);
+  updateVersionUi();
+  renderPlayers();
+  renderBanGrid();
+  updateCounts();
 }
 
 els.minusPlayer.addEventListener('click', () => setPlayers(state.players - 1));
@@ -417,5 +458,10 @@ document.querySelectorAll('.preset-btn').forEach(btn => {
   btn.addEventListener('click', () => applyPreset(btn.dataset.preset));
 });
 
+els.versionBtns.forEach(btn => {
+  btn.addEventListener('click', () => setVersion(btn.dataset.version));
+});
+
+updateVersionUi();
 updateCounts();
 renderPlayers();

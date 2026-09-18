@@ -153,9 +153,11 @@ h1 {
 .stepper button { height: 100%; border: 0; background: transparent; cursor: pointer; }
 .stepper strong { text-align: center; font-size: 16px; }
 
-.preset-row { display: flex; gap: 7px; }
+.preset-row,
+.version-row { display: flex; gap: 7px; }
 
 .preset-btn,
+.version-btn,
 .secondary-button {
   border: 1px solid rgba(255,255,255,.26);
   background: rgba(255,255,255,.05);
@@ -167,11 +169,16 @@ h1 {
   transform: skewX(-7deg);
 }
 
-.preset-btn.active {
+.preset-btn.active,
+.version-btn.active {
   border-color: rgba(248,155,50,.95);
   background: rgba(248,155,50,.22);
   color: #ffc177;
 }
+
+.version-unit { min-width: 250px; }
+.version-btn { white-space: nowrap; }
+.version-btn[data-version="next"] { flex: 1; }
 
 .availability strong { font-size: 20px; font-style: italic; }
 .availability em { padding: 0 5px; color: #65738a; font-style: normal; }
@@ -756,6 +763,9 @@ footer {
   .ban-open { width: 100%; }
   .control-bar { flex-wrap: wrap; }
   .control-unit { flex: 1; min-width: 50%; }
+  .version-unit { min-width: 100%; order: 2; }
+  .version-row { width: 100%; }
+  .version-btn { flex: 1; }
   .preset-unit { order: 3; min-width: 100%; border-top: 1px solid var(--line); }
   .availability { flex: 1; min-width: 50%; }
   .team-stage__label span:last-child { display: none; }
