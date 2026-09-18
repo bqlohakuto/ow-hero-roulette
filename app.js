@@ -1,119 +1,116 @@
 const HEROES = [
-  { id: 'dmon', name: 'D.Mon', role: 'tank', icon: '⚔' },
-  { id: 'ana', name: 'Ana', role: 'support', icon: '◎' },
-  { id: 'anran', name: 'Anran', role: 'damage', icon: '🔥' },
-  { id: 'ashe', name: 'Ashe', role: 'damage', icon: '♠' },
-  { id: 'baptiste', name: 'Baptiste', role: 'support', icon: '✚' },
-  { id: 'bastion', name: 'Bastion', role: 'damage', icon: '⚙' },
-  { id: 'brigitte', name: 'Brigitte', role: 'support', icon: '⬡' },
-  { id: 'cassidy', name: 'Cassidy', role: 'damage', icon: '★' },
+  { id: 'dmon', name: 'ディーモン', role: 'tank', icon: '⚔' },
+  { id: 'ana', name: 'アナ', role: 'support', icon: '◎' },
+  { id: 'anran', name: 'アンラン', role: 'damage', icon: '🔥' },
+  { id: 'ashe', name: 'アッシュ', role: 'damage', icon: '♠' },
+  { id: 'baptiste', name: 'バティスト', role: 'support', icon: '✚' },
+  { id: 'bastion', name: 'バスティオン', role: 'damage', icon: '⚙' },
+  { id: 'brigitte', name: 'ブリギッテ', role: 'support', icon: '⬡' },
+  { id: 'cassidy', name: 'キャスディ', role: 'damage', icon: '★' },
   { id: 'dva', name: 'D.Va', role: 'tank', icon: '🐰' },
-  { id: 'domina', name: 'Domina', role: 'tank', icon: '◆' },
-  { id: 'doomfist', name: 'Doomfist', role: 'tank', icon: '✊' },
-  { id: 'echo', name: 'Echo', role: 'damage', icon: '◇' },
-  { id: 'emre', name: 'Emre', role: 'damage', icon: '⬢' },
-  { id: 'freja', name: 'Freja', role: 'damage', icon: '➹' },
-  { id: 'genji', name: 'Genji', role: 'damage', icon: '✦' },
-  { id: 'hanzo', name: 'Hanzo', role: 'damage', icon: '➶' },
-  { id: 'hazard', name: 'Hazard', role: 'tank', icon: '✹' },
-  { id: 'illari', name: 'Illari', role: 'support', icon: '☀' },
-  { id: 'jetpack-cat', name: 'Jetpack Cat', role: 'support', icon: '🐈' },
-  { id: 'junker-queen', name: 'Junker Queen', role: 'tank', icon: '♛' },
-  { id: 'junkrat', name: 'Junkrat', role: 'damage', icon: '💥' },
-  { id: 'juno', name: 'Juno', role: 'support', icon: '🪐' },
-  { id: 'kiriko', name: 'Kiriko', role: 'support', icon: '🦊' },
-  { id: 'lifeweaver', name: 'Lifeweaver', role: 'support', icon: '🌸' },
-  { id: 'lucio', name: 'Lúcio', role: 'support', icon: '♫' },
-  { id: 'mauga', name: 'Mauga', role: 'tank', icon: '🌋' },
-  { id: 'mei', name: 'Mei', role: 'damage', icon: '❄' },
-  { id: 'mercy', name: 'Mercy', role: 'support', icon: '✧' },
-  { id: 'mizuki', name: 'Mizuki', role: 'support', icon: '☂' },
-  { id: 'moira', name: 'Moira', role: 'support', icon: '◉' },
-  { id: 'orisa', name: 'Orisa', role: 'tank', icon: '♜' },
-  { id: 'pharah', name: 'Pharah', role: 'damage', icon: '🚀' },
-  { id: 'ramattra', name: 'Ramattra', role: 'tank', icon: '☯' },
-  { id: 'reaper', name: 'Reaper', role: 'damage', icon: '☠' },
-  { id: 'reinhardt', name: 'Reinhardt', role: 'tank', icon: '🔨' },
-  { id: 'roadhog', name: 'Roadhog', role: 'tank', icon: '🪝' },
-  { id: 'shion', name: 'Shion', role: 'damage', icon: '鬼' },
-  { id: 'sierra', name: 'Sierra', role: 'damage', icon: '⌖' },
-  { id: 'sigma', name: 'Sigma', role: 'tank', icon: 'Σ' },
-  { id: 'sojourn', name: 'Sojourn', role: 'damage', icon: 'ϟ' },
-  { id: 'soldier-76', name: 'Soldier: 76', role: 'damage', icon: '76' },
-  { id: 'sombra', name: 'Sombra', role: 'damage', icon: '⌁' },
-  { id: 'symmetra', name: 'Symmetra', role: 'damage', icon: '◈' },
-  { id: 'torbjorn', name: 'Torbjörn', role: 'damage', icon: '🔧' },
-  { id: 'tracer', name: 'Tracer', role: 'damage', icon: '◷' },
-  { id: 'vendetta', name: 'Vendetta', role: 'damage', icon: '⚔' },
-  { id: 'venture', name: 'Venture', role: 'damage', icon: '⛏' },
-  { id: 'widowmaker', name: 'Widowmaker', role: 'damage', icon: '🕷' },
-  { id: 'winston', name: 'Winston', role: 'tank', icon: '🦍' },
-  { id: 'wrecking-ball', name: 'Wrecking Ball', role: 'tank', icon: '🐹' },
-  { id: 'wuyang', name: 'Wuyang', role: 'support', icon: '💧' },
-  { id: 'zarya', name: 'Zarya', role: 'tank', icon: '⬤' },
-  { id: 'zenyatta', name: 'Zenyatta', role: 'support', icon: '☸' }
+  { id: 'domina', name: 'ドミナ', role: 'tank', icon: '◆' },
+  { id: 'doomfist', name: 'ドゥームフィスト', role: 'tank', icon: '✊' },
+  { id: 'echo', name: 'エコー', role: 'damage', icon: '◇' },
+  { id: 'emre', name: 'エムレ', role: 'damage', icon: '⬢' },
+  { id: 'freja', name: 'フレイヤ', role: 'damage', icon: '➹' },
+  { id: 'genji', name: 'ゲンジ', role: 'damage', icon: '✦' },
+  { id: 'hanzo', name: 'ハンゾー', role: 'damage', icon: '➶' },
+  { id: 'hazard', name: 'ハザード', role: 'tank', icon: '✹' },
+  { id: 'illari', name: 'イラリー', role: 'support', icon: '☀' },
+  { id: 'jetpack-cat', name: 'ジェットパック・キャット', role: 'support', icon: '🐈' },
+  { id: 'junker-queen', name: 'ジャンカー・クイーン', role: 'tank', icon: '♛' },
+  { id: 'junkrat', name: 'ジャンクラット', role: 'damage', icon: '💥' },
+  { id: 'juno', name: 'ジュノ', role: 'support', icon: '🪐' },
+  { id: 'kiriko', name: 'キリコ', role: 'support', icon: '🦊' },
+  { id: 'lifeweaver', name: 'ライフウィーバー', role: 'support', icon: '🌸' },
+  { id: 'lucio', name: 'ルシオ', role: 'support', icon: '♫' },
+  { id: 'mauga', name: 'マウガ', role: 'tank', icon: '🌋' },
+  { id: 'mei', name: 'メイ', role: 'damage', icon: '❄' },
+  { id: 'mercy', name: 'マーシー', role: 'support', icon: '✧' },
+  { id: 'mizuki', name: 'ミズキ', role: 'support', icon: '☂' },
+  { id: 'moira', name: 'モイラ', role: 'support', icon: '◉' },
+  { id: 'orisa', name: 'オリーサ', role: 'tank', icon: '♜' },
+  { id: 'pharah', name: 'ファラ', role: 'damage', icon: '🚀' },
+  { id: 'ramattra', name: 'ラマットラ', role: 'tank', icon: '☯' },
+  { id: 'reaper', name: 'リーパー', role: 'damage', icon: '☠' },
+  { id: 'reinhardt', name: 'ラインハルト', role: 'tank', icon: '🔨' },
+  { id: 'roadhog', name: 'ロードホッグ', role: 'tank', icon: '🪝' },
+  { id: 'shion', name: 'シオン', role: 'damage', icon: '鬼' },
+  { id: 'sierra', name: 'シエラ', role: 'damage', icon: '⌖' },
+  { id: 'sigma', name: 'シグマ', role: 'tank', icon: 'Σ' },
+  { id: 'sojourn', name: 'ソジョーン', role: 'damage', icon: 'ϟ' },
+  { id: 'soldier-76', name: 'ソルジャー76', role: 'damage', icon: '76' },
+  { id: 'sombra', name: 'ソンブラ', role: 'damage', icon: '⌁' },
+  { id: 'symmetra', name: 'シンメトラ', role: 'damage', icon: '◈' },
+  { id: 'torbjorn', name: 'トールビョーン', role: 'damage', icon: '🔧' },
+  { id: 'tracer', name: 'トレーサー', role: 'damage', icon: '◷' },
+  { id: 'vendetta', name: 'ヴェンデッタ', role: 'damage', icon: '⚔' },
+  { id: 'venture', name: 'ベンチャー', role: 'damage', icon: '⛏' },
+  { id: 'widowmaker', name: 'ウィドウメイカー', role: 'damage', icon: '🕷' },
+  { id: 'winston', name: 'ウィンストン', role: 'tank', icon: '🦍' },
+  { id: 'wrecking-ball', name: 'レッキング・ボール', role: 'tank', icon: '🐹' },
+  { id: 'wuyang', name: 'ウーヤン', role: 'support', icon: '💧' },
+  { id: 'zarya', name: 'ザリア', role: 'tank', icon: '⬤' },
+  { id: 'zenyatta', name: 'ゼニヤッタ', role: 'support', icon: '☸' }
 ];
 
 
-const SILHOUETTE_BASE = `
-  <path d="M30 91c2-17 10-26 20-28 10 2 18 11 20 28H30Z"/>
-  <circle cx="50" cy="42" r="15"/>
-`;
+const SILHOUETTE_BASE = ``;
 
 const SILHOUETTE_FEATURES = {
-  'dmon': `<path d="M31 28 21 14l16 8 13-12 13 12 16-8-10 14-7-4-12-1-12 1-7 4Z"/><rect x="20" y="64" width="18" height="20" rx="4"/><rect x="62" y="64" width="18" height="20" rx="4"/>`,
-  'ana': `<path d="M32 35c4-17 32-17 36 0l-7-3-5-9-6 5-7-5-5 9-6 3Z"/><rect x="13" y="68" width="42" height="5" rx="2" transform="rotate(-18 13 68)"/>`,
-  'anran': `<path d="M34 30c-7-12 5-18 7-25 4 9 9 10 9 20 3-9 9-11 13-18 3 10 9 19 1 26l-30-3Z"/>`,
-  'ashe': `<path d="M25 30h50l-8-10H55l-5-8-5 8H33l-8 10Z"/><rect x="58" y="63" width="35" height="5" rx="2" transform="rotate(-12 58 63)"/>`,
-  'baptiste': `<rect x="34" y="28" width="32" height="8" rx="4"/><rect x="13" y="66" width="40" height="10" rx="3" transform="rotate(-12 13 66)"/><rect x="71" y="61" width="9" height="21" rx="2"/>`,
-  'bastion': `<rect x="35" y="25" width="30" height="28" rx="4"/><circle cx="50" cy="39" r="6"/><rect x="22" y="52" width="56" height="35" rx="5"/><rect x="67" y="16" width="8" height="35" rx="3"/><rect x="74" y="12" width="15" height="7" rx="2"/>`,
-  'brigitte': `<path d="M66 33c12 3 18 13 13 25l-9-6 3-9-7-10Z"/><rect x="11" y="63" width="28" height="22" rx="3"/><rect x="69" y="59" width="7" height="29" rx="3"/><circle cx="73" cy="57" r="7"/>`,
-  'cassidy': `<path d="M22 30h56l-9-9H58l-8-8-8 8H31l-9 9Z"/><rect x="69" y="62" width="23" height="7" rx="2"/><rect x="83" y="66" width="5" height="11" rx="2"/>`,
-  'dva': `<path d="M35 29 29 8l13 14h16L71 8l-6 21-10-4H45l-10 4Z"/><path d="M21 71 8 55l8-9 18 18-13 7Zm58 0 13-16-8-9-18 18 13 7Z"/>`,
-  'domina': `<path d="M31 31 25 12l16 9 9-15 9 15 16-9-6 19-12-5H43l-12 5Z"/><path d="M23 72 9 58l7-10 21 17-14 7Zm54-1 14-13-7-10-21 17 14 6Z"/>`,
-  'doomfist': `<path d="M66 62h24v26H65l-8-11 9-15Z"/><rect x="72" y="54" width="7" height="15" rx="3"/><rect x="81" y="52" width="7" height="17" rx="3"/>`,
-  'echo': `<path d="M50 17 64 37 50 54 36 37 50 17Z"/><path d="M31 64 7 47l5 24 22 13-3-20Zm38 0 24-17-5 24-22 13 3-20Z"/>`,
-  'emre': `<path d="M31 30h38l-6-9H37l-6 9Z"/><rect x="15" y="69" width="43" height="6" rx="2" transform="rotate(-8 15 69)"/><path d="M71 58h13l7 9-12 5-8-14Z"/>`,
-  'freja': `<path d="M25 18c25 10 25 54 0 66 19-18 19-48 0-66Zm50 0c-25 10-25 54 0 66-19-18-19-48 0-66Z"/><rect x="48" y="13" width="4" height="75" rx="2"/>`,
-  'genji': `<path d="M34 31 41 13l9 10 9-10 7 18-10-4H44l-10 4Z"/><rect x="70" y="20" width="6" height="64" rx="2" transform="rotate(38 70 20)"/>`,
-  'hanzo': `<circle cx="50" cy="19" r="7"/><path d="M26 22c26 9 28 45 2 64 17-19 16-46-2-64Z"/><rect x="70" y="20" width="4" height="65" rx="2" transform="rotate(16 70 20)"/>`,
-  'hazard': `<path d="M31 31 19 17l17 4 4-15 10 13L60 6l4 15 17-4-12 14-9-5H40l-9 5Z"/><path d="M18 74 7 61l9-6 14 15-12 4Zm64 0 11-13-9-6-14 15 12 4Z"/>`,
-  'illari': `<circle cx="50" cy="17" r="8"/><path d="M50 2v8M50 24v8M35 17h8M57 17h8M39 6l6 6M55 22l6 6M61 6l-6 6M45 22l-6 6" stroke="currentColor" stroke-width="5" stroke-linecap="round" fill="none"/><rect x="72" y="47" width="6" height="39" rx="3"/>`,
-  'jetpack-cat': `<path d="M36 35 27 19l15 7 8-8 8 8 15-7-9 16-10-5h-8l-10 5Z"/><path d="M26 62H13v25h18V69h38v18h18V62H74l-8-9H34l-8 9Z"/>`,
-  'junker-queen': `<path d="M37 27 42 7l8 14 8-14 5 20-9-4h-8l-9 4Z"/><path d="M78 58 92 73l-7 6-11-9-6 17-7-3 8-20 9-6Z"/>`,
-  'junkrat': `<path d="M30 31 18 22l14-2-5-12 13 7 5-13 6 13 12-9-3 14 14 2-12 9-10-5H40l-10 5Z"/><circle cx="24" cy="74" r="14"/><circle cx="24" cy="74" r="6" fill="none" stroke="currentColor" stroke-width="5"/>`,
-  'juno': `<circle cx="50" cy="40" r="19"/><path d="M26 40c4-25 44-32 55-7" fill="none" stroke="currentColor" stroke-width="5"/><circle cx="80" cy="31" r="5"/><path d="M20 69 8 60l8-8 15 11-11 6Zm60 0 12-9-8-8-15 11 11 6Z"/>`,
-  'kiriko': `<path d="M33 32 25 13l16 9 9-10 9 10 16-9-8 19-10-6H43l-10 6Z"/><path d="M76 56 91 70l-6 7-16-13 7-8Z"/>`,
-  'lifeweaver': `<path d="M50 9 58 25 75 20 68 36 83 46 65 49 66 67 50 57 34 67 35 49 17 46 32 36 25 20 42 25 50 9Z"/>`,
-  'lucio': `<path d="M31 33c-5-17 6-25 19-25s24 8 19 25l-7-2c2-10-3-15-12-15s-14 5-12 15l-7 2Z"/><path d="M28 35h9v20h-9V35Zm35 0h9v20h-9V35Z"/><path d="M31 48c-10 8-12 18-7 31M69 48c10 8 12 18 7 31" fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round"/>`,
-  'mauga': `<path d="M19 88c1-25 12-35 31-35s30 10 31 35H19Z"/><rect x="4" y="60" width="28" height="14" rx="4"/><rect x="68" y="60" width="28" height="14" rx="4"/><rect x="9" y="54" width="7" height="34" rx="3"/><rect x="84" y="54" width="7" height="34" rx="3"/>`,
-  'mei': `<circle cx="50" cy="21" r="8"/><path d="M32 34c3-10 33-10 36 0l-8-2-10-7-10 7-8 2Z"/><rect x="68" y="61" width="21" height="10" rx="3"/><rect x="80" y="54" width="6" height="25" rx="3"/>`,
-  'mercy': `<ellipse cx="50" cy="15" rx="13" ry="5" fill="none" stroke="currentColor" stroke-width="4"/><path d="M30 59 8 43l8 30 18 11-4-25Zm40 0 22-16-8 30-18 11 4-25Z"/>`,
-  'mizuki': `<path d="M17 54c8-24 58-24 66 0-10-5-17-5-25 0-7-5-14-5-21 0-7-5-13-5-20 0Z"/><rect x="48" y="50" width="4" height="38" rx="2"/>`,
-  'moira': `<path d="M31 33c3-18 35-18 38 0l-9-5-10-11-10 11-9 5Z"/><circle cx="19" cy="68" r="10"/><circle cx="81" cy="68" r="10"/><path d="M29 74 40 62M71 74 60 62" stroke="currentColor" stroke-width="6" stroke-linecap="round"/>`,
-  'orisa': `<path d="M36 34 25 21l15 3 10-16 10 16 15-3-11 13-10-5H46l-10 5Z"/><path d="M25 62h50l10 26H64L58 72H42L36 88H15l10-26Z"/>`,
-  'pharah': `<path d="M33 31 40 13h20l7 18-9-5H42l-9 5Z"/><path d="M28 59 6 45l9 34 18 8-5-28Zm44 0 22-14-9 34-18 8 5-28Z"/>`,
-  'ramattra': `<path d="M35 31 29 14l15 7 6-12 6 12 15-7-6 17-10-5H45l-10 5Z"/><path d="M18 61h18v27H15l3-27Zm64 0H64v27h21l-3-27Z"/>`,
-  'reaper': `<path d="M31 30 39 17h22l8 13-8 2-5 13H44l-5-13-8-2Z"/><path d="M16 64h27l-8 9H13l3-9Zm68 0H57l8 9h22l-3-9Z"/>`,
-  'reinhardt': `<path d="M31 32 26 15l13 8 11-16 11 16 13-8-5 17-10-5H41l-10 5Z"/><rect x="76" y="27" width="9" height="55" rx="3"/><path d="M70 24h22v13H70z"/>`,
-  'roadhog': `<path d="M18 89c1-30 14-41 32-41s31 11 32 41H18Z"/><circle cx="50" cy="39" r="17"/><path d="M65 63c15-13 28-4 21 9-4 7-13 8-19 2" fill="none" stroke="currentColor" stroke-width="6"/>`,
-  'shion': `<path d="M31 32 24 15l16 8 10-14 10 14 16-8-7 17-12-6H43l-12 6Z"/><path d="M72 52 91 65l-5 8-20-12 6-9Z"/>`,
-  'sierra': `<path d="M34 29h32l-5-11H39l-5 11Z"/><path d="M50 6v12M25 18l10 7M75 18l-10 7" stroke="currentColor" stroke-width="5" stroke-linecap="round"/><rect x="72" y="55" width="18" height="8" rx="2"/>`,
-  'sigma': `<path d="M33 32c4-18 30-18 34 0l-8-4-9-12-9 12-8 4Z"/><circle cx="19" cy="67" r="10"/><circle cx="81" cy="67" r="10"/>`,
-  'sojourn': `<path d="M34 28h32l-6-10H40l-6 10Z"/><rect x="61" y="63" width="31" height="7" rx="3"/><path d="M72 56h9l4 7-10 3-3-10Z"/>`,
-  'soldier-76': `<path d="M31 29h38l-4-10H35l-4 10Z"/><rect x="31" y="31" width="38" height="7" rx="3"/><rect x="61" y="63" width="31" height="8" rx="3"/>`,
-  'sombra': `<path d="M31 31c2-18 36-18 38 0l-8-3-11-13-11 13-8 3Z"/><path d="M78 55 92 67l-7 8-14-13 7-7Z"/><circle cx="19" cy="70" r="7"/>`,
-  'symmetra': `<path d="M34 32c3-17 29-18 32 0l-7-4-9-14-9 14-7 4Z"/><path d="M76 48 91 60 81 78 65 64 76 48Z"/>`,
-  'torbjorn': `<path d="M29 31h42l-8-12H37l-8 12Z"/><path d="M30 47h40l-7 11H37l-7-11Z"/><rect x="72" y="57" width="8" height="31" rx="3"/><path d="M65 55h22v10H65z"/>`,
-  'tracer': `<path d="M34 30h32l-7-12H41l-7 12Z"/><circle cx="50" cy="68" r="10"/><path d="M18 62 8 54l8-8 14 10-12 6Zm64 0 10-8-8-8-14 10 12 6Z"/>`,
-  'vendetta': `<path d="M32 31 40 15h20l8 16-9-4H41l-9 4Z"/><rect x="72" y="19" width="6" height="69" rx="2" transform="rotate(28 72 19)"/>`,
-  'venture': `<path d="M35 30 40 16h20l5 14-9-4H44l-9 4Z"/><path d="M68 52 90 61 83 79 61 69 68 52Z"/>`,
-  'widowmaker': `<path d="M33 30 40 18h20l7 12-9-4H42l-9 4Z"/><path d="M50 8 56 18 50 25 44 18 50 8Z"/><rect x="62" y="61" width="31" height="5" rx="2"/>`,
-  'winston': `<path d="M25 88c2-28 12-42 25-42s23 14 25 42H25Z"/><circle cx="50" cy="37" r="18"/><path d="M14 63h19v24H11l3-24Zm72 0H67v24h22l-3-24Z"/>`,
-  'wrecking-ball': `<circle cx="50" cy="57" r="31"/><path d="M38 34 31 17l14 8 5-11 5 11 14-8-7 17-12-5-12 5Z"/><circle cx="50" cy="54" r="10"/>`,
-  'wuyang': `<path d="M34 31c3-17 29-17 32 0l-7-4-9-12-9 12-7 4Z"/><path d="M50 55c10 11 12 19 0 31-12-12-10-20 0-31Z"/>`,
-  'zarya': `<path d="M31 31c4-16 34-16 38 0l-9-4-10-10-10 10-9 4Z"/><rect x="66" y="57" width="27" height="17" rx="4"/><circle cx="80" cy="65" r="6"/>`,
-  'zenyatta': `<circle cx="50" cy="39" r="14"/><circle cx="50" cy="14" r="5"/><circle cx="31" cy="20" r="5"/><circle cx="69" cy="20" r="5"/><circle cx="24" cy="39" r="5"/><circle cx="76" cy="39" r="5"/><circle cx="34" cy="58" r="5"/><circle cx="66" cy="58" r="5"/>`
+  'dmon': `<path d="M13 18h43v35c0 17-11 27-21 34-10-7-22-17-22-34V18Z" fill="none" stroke="currentColor" stroke-width="6"/><path d="m67 10 14 14-27 48-11-11 24-51Z"/><path d="m42 62 19 19M39 72l13-13" stroke="currentColor" stroke-width="6"/>`,
+  'ana': `<path d="M6 40h65l13 8-13 8H36l-8 12H17l6-12H6V40Z"/><path d="M67 70h17l7 7-7 7H67V70Z"/><path d="M75 62v30M60 77h30" stroke="currentColor" stroke-width="6"/>`,
+  'anran': `<path d="M17 81 50 43l33 38H17Z" fill="none" stroke="currentColor" stroke-width="6"/><path d="M50 44v37M38 52l-8 29M62 52l8 29" stroke="currentColor" stroke-width="4"/><path d="M48 7c4 13 16 16 10 29 8-5 11-11 12-19 10 14 7 26-4 34H35c-13-13-8-29 5-40-1 8 2 14 8 19-3-10-2-16 0-23Z"/>`,
+  'ashe': `<path d="M8 28h71l11 7-11 7H35L27 52H16l6-10H8V28Z"/><path d="M64 60h11v25H64zM78 65h9v20h-9z"/><path d="M69 57h13l4 8H65l4-8Z"/>`,
+  'baptiste': `<path d="M10 50h68l12 8-12 8H42l-7 13H24l6-13H10V50Z"/><path d="M50 13v26M37 26h26" stroke="currentColor" stroke-width="8"/>`,
+  'bastion': `<circle cx="40" cy="50" r="27" fill="none" stroke="currentColor" stroke-width="8"/><path d="M40 15v12M40 73v12M5 50h12M63 50h12M15 25l9 9M56 66l9 9M65 25l-9 9M24 66l-9 9" stroke="currentColor" stroke-width="7"/><path d="M46 40h39l10 10-10 10H46V40Z"/>`,
+  'brigitte': `<path d="M12 24h38v31c0 15-10 25-19 31-9-6-19-16-19-31V24Z" fill="none" stroke="currentColor" stroke-width="6"/><path d="M67 17c14 4 20 14 15 25l-8-4c2-6-1-11-9-13l2-8Z"/><path d="M67 25 51 72" stroke="currentColor" stroke-width="7"/><circle cx="49" cy="77" r="8"/>`,
+  'cassidy': `<path d="M15 32h70L72 19H59l-9-9-9 9H28L15 32Z"/><path d="M39 53h43l10 8-10 8H64l-6 13H47l4-13H39V53Z"/>`,
+  'dva': `<path d="M25 58 18 14l24 24h16l24-24-7 44c-3 19-14 27-25 27S28 77 25 58Z" fill="none" stroke="currentColor" stroke-width="6"/><circle cx="38" cy="56" r="4"/><circle cx="62" cy="56" r="4"/><path d="m44 67 6 4 6-4" fill="none" stroke="currentColor" stroke-width="4"/>`,
+  'domina': `<path d="M11 18h46v34c0 17-12 27-23 34-11-7-23-17-23-34V18Z" fill="none" stroke="currentColor" stroke-width="6"/><path d="M17 33h34M23 20l-6 31M34 20v39M46 20l6 31" fill="none" stroke="currentColor" stroke-width="3"/><path d="M59 46h27l8 8-8 9H64l-5-17Z"/><rect x="75" y="61" width="7" height="15" rx="2"/>`,
+  'doomfist': `<path d="M25 49V28c0-8 10-8 10 0v17-26c0-8 10-8 10 0v25-30c0-8 10-8 10 0v30-24c0-8 10-8 10 0v28l7-10c5-7 14-1 10 7L69 73c-5 10-12 14-23 14-14 0-24-10-24-25V49h3Z"/>`,
+  'echo': `<path d="M50 16 65 39 50 57 35 39 50 16Z"/><path d="M31 51 7 35l8 40 20 10-4-34Zm38 0 24-16-8 40-20 10 4-34Z"/>`,
+  'emre': `<path d="M8 54h62l14 8-14 8H36l-8 12H18l5-12H8V54Z"/><circle cx="80" cy="31" r="14" fill="none" stroke="currentColor" stroke-width="6"/><path d="M80 12v7M68 18l5 6" stroke="currentColor" stroke-width="5"/>`,
+  'freja': `<path d="M16 50 47 22v56L16 50Zm68 0L53 22v56l31-28Z" fill="none" stroke="currentColor" stroke-width="6"/><rect x="47" y="13" width="6" height="74" rx="3"/><path d="M67 22c10 7 13 15 12 26-8-3-14-8-18-16l6-10Z"/>`,
+  'genji': `<path d="m24 21 9 18 20-3-14 15 9 18-20-7-15 14 4-21L2 41l21 3 1-23Z"/><path d="M61 18 90 47 82 55 53 26l8-8Z"/>`,
+  'hanzo': `<path d="M26 18c28 12 28 52 0 68 17-22 17-46 0-68Z" fill="none" stroke="currentColor" stroke-width="7"/><path d="M28 52h39M61 47l7 5-7 5" stroke="currentColor" stroke-width="5"/><path d="M66 25c16 1 22 12 13 22-5 6-12 4-15 10-3 6 3 12 12 11-8 11-25 5-25-8 0-13 14-14 18-21 4-7-2-12-3-14Z"/>`,
+  'hazard': `<path d="m50 12 10 13 18-6-5 17 15 10-16 9 7 18-18-5-11 19-11-18-19 6 6-19-16-9 16-11-5-18 18 7 11-13Z"/><path d="m34 33 13-8 14 7 8 13-8 15-18 8-13-13 4-22Z" fill="none" stroke="#fff" stroke-opacity=".25" stroke-width="3"/>`,
+  'illari': `<circle cx="31" cy="30" r="13"/><path d="M31 5v12M31 43v12M6 30h12M44 30h12M13 12l9 9M40 39l9 9M49 12l-9 9M22 39l-9 9" stroke="currentColor" stroke-width="5"/><path d="M40 58h48l8 7-8 8H61l-7 12H44l5-12h-9V58Z"/>`,
+  'jetpack-cat': `<path d="M31 42 23 17l18 11 9-8 9 8 18-11-8 25-12-7H43l-12 7Z"/><circle cx="42" cy="46" r="3"/><circle cx="58" cy="46" r="3"/><path d="M15 61h17v27H15zM68 61h17v27H68z"/>`,
+  'junker-queen': `<path d="m17 77 29-51 10 6-29 51-10-6Z"/><path d="M37 18 64 8l-10 28-17-18Z"/><path d="m58 76 20-37 8 4-20 37-8-4Z"/><path d="m74 33 15 4-8 12-7-16Z"/>`,
+  'junkrat': `<circle cx="46" cy="57" r="27" fill="none" stroke="currentColor" stroke-width="9"/><path d="M46 21v10M46 83v10M10 57h10M72 57h10M20 31l8 8M64 75l8 8M72 31l-8 8M28 75l-8 8" stroke="currentColor" stroke-width="7"/><path d="M75 15c2 9 11 11 7 20 6-4 8-8 8-14 8 11 4 23-7 28-11-5-14-17-8-26-1 5 0 8 4 11-2-8-3-13-4-19Z"/>`,
+  'juno': `<circle cx="42" cy="43" r="23" fill="none" stroke="currentColor" stroke-width="6"/><path d="M12 44c17-19 43-25 66-10" fill="none" stroke="currentColor" stroke-width="6"/><circle cx="79" cy="33" r="6"/><path d="M58 61h30l8 7-8 8H67l-5 10h-9l5-10V61Z"/>`,
+  'kiriko': `<path d="M31 42 23 16l18 12 9-10 9 10 18-12-8 26-12-7H43l-12 7Z"/><path d="M14 70 27 55l8 7-13 15-8-7ZM64 56h20v29H64z"/>`,
+  'lifeweaver': `<path d="M50 9 59 29 80 20 70 42 91 50 70 58 80 80 59 71 50 91 41 71 20 80 30 58 9 50 30 42 20 20 41 29 50 9Z"/>`,
+  'lucio': `<circle cx="55" cy="57" r="18" fill="none" stroke="currentColor" stroke-width="7"/><path d="M28 37c-10 7-15 16-15 27M38 44c-6 4-9 10-9 19M73 25v25c0 8 13 8 13-1 0-7-8-9-13-5" fill="none" stroke="currentColor" stroke-width="6"/>`,
+  'mauga': `<path d="M50 7c4 14 15 17 10 30 9-6 14-15 14-25 12 13 15 30 4 42H22c-11-13-6-30 9-43-1 12 3 20 11 26-3-13 5-20 8-30Z"/><rect x="7" y="57" width="36" height="20" rx="6"/><rect x="57" y="57" width="36" height="20" rx="6"/><path d="M13 61v12m8-12v12m8-12v12m8-12v12m27-12v12m8-12v12m8-12v12m8-12v12" stroke="#fff" stroke-opacity=".28" stroke-width="3"/>`,
+  'mei': `<path d="M28 10v80M10 28l80 44M10 72l80-44M16 50h84" stroke="currentColor" stroke-width="5"/><path d="M61 58h27l8 7-8 8H63l-2-15Z"/>`,
+  'mercy': `<ellipse cx="50" cy="16" rx="17" ry="6" fill="none" stroke="currentColor" stroke-width="5"/><path d="M34 47 8 31l9 38 20 14-3-36Zm32 0 26-16-9 38-20 14 3-36Z"/><path d="M50 35v52M43 87h14" stroke="currentColor" stroke-width="6"/>`,
+  'mizuki': `<path d="M9 43c13-26 69-26 82 0-12-4-21-4-31 0-8-5-16-5-24 0-9-4-17-4-27 0Z" fill="none" stroke="currentColor" stroke-width="6"/><path d="M50 17v29" stroke="currentColor" stroke-width="5"/><path d="M37 63c14-17 32-20 46-12-4 26-20 37-42 37 15-7 24-18 25-30-11-2-19 2-25 10l-4-5Z"/><rect x="33" y="61" width="7" height="31" rx="3" transform="rotate(25 36 76)"/>`,
+  'moira': `<circle cx="50" cy="34" r="12"/><path d="M13 84c2-18 11-28 24-31l7 13-14 21-17-3Zm74 0c-2-18-11-28-24-31l-7 13 14 21 17-3Z"/><path d="M50 10c6 8 15 11 11 21-4 8-14 8-18 1-4-8 3-14 7-22Z"/>`,
+  'orisa': `<path d="M18 21h43v34c0 15-10 24-21 31-11-7-22-16-22-31V21Z" fill="none" stroke="currentColor" stroke-width="6"/><path d="M73 8v76M64 18l9-11 9 11M66 83h14" fill="none" stroke="currentColor" stroke-width="7"/>`,
+  'pharah': `<path d="M50 10 62 35 55 75 50 90 45 75 38 35 50 10Z"/><path d="M37 43 13 28l8 39 20 12-4-36Zm26 0 24-15-8 39-20 12 4-36Z"/>`,
+  'ramattra': `<path d="M20 18v67M12 20l8-12 8 12M11 84h18" fill="none" stroke="currentColor" stroke-width="7"/><path d="M59 48h25v28H58l-8-13 9-15Z"/><rect x="62" y="36" width="6" height="17" rx="3"/><rect x="71" y="34" width="6" height="19" rx="3"/><rect x="80" y="38" width="6" height="15" rx="3"/>`,
+  'reaper': `<path d="M39 17h22l12 15-7 22-16 18-16-18-7-22 12-15Z"/><path d="M7 67h36l-8 10H7V67Zm86 0H57l8 10h28V67Z"/><rect x="16" y="74" width="7" height="15"/><rect x="77" y="74" width="7" height="15"/>`,
+  'reinhardt': `<path d="M13 24h43v31c0 15-10 25-22 32-12-7-21-17-21-32V24Z" fill="none" stroke="currentColor" stroke-width="6"/><path d="M68 17h20v27H68z"/><rect x="75" y="42" width="7" height="43" rx="3"/><path d="M62 20h32v12H62z"/>`,
+  'roadhog': `<path d="M16 19c14-14 34-7 37 7 3 15-11 21-22 15-10-5-8-18 2-24" fill="none" stroke="currentColor" stroke-width="7"/><path d="m16 18 11-8 7 10" fill="none" stroke="currentColor" stroke-width="7"/><circle cx="70" cy="53" r="22" fill="none" stroke="currentColor" stroke-width="6"/><circle cx="61" cy="49" r="6"/><circle cx="79" cy="49" r="6"/><path d="M59 67h22l-4-12H63l-4 12ZM48 52h-8M92 52h-8" stroke="currentColor" stroke-width="6"/>`,
+  'shion': `<path d="M8 26h31l9 7-9 8H23l-5 11H8l5-11H8V26Zm84 0H61l-9 7 9 8h16l5 11h10l-5-11h5V26Z"/><circle cx="31" cy="78" r="12" fill="none" stroke="currentColor" stroke-width="6"/><circle cx="72" cy="78" r="12" fill="none" stroke="currentColor" stroke-width="6"/><path d="M31 78h41L60 61H45L31 78Z"/>`,
+  'sierra': `<circle cx="36" cy="37" r="22" fill="none" stroke="currentColor" stroke-width="5"/><path d="M36 7v16M36 51v16M6 37h16M50 37h16" stroke="currentColor" stroke-width="5"/><path d="M39 61h51l7 7-7 7H62l-7 11H44l5-11H39V61Z"/>`,
+  'sigma': `<path d="m50 15 17 10 5 19-12 18-23 4-16-13 3-21 10-14 16-3Z"/><path d="m34 28 13-5 14 9-4 17-17 8-11-11 5-18Z" fill="none" stroke="#fff" stroke-opacity=".25" stroke-width="3"/><circle cx="14" cy="72" r="10"/><circle cx="86" cy="72" r="10"/>`,
+  'sojourn': `<path d="M17 16h11l7 32-9 37H13l10-38-6-31Zm38 0h11l7 31 14 38H74L62 49l-7-33Z"/><path d="M33 55h55l8 7-8 8H59l-7 13H41l5-13H33V55Z"/>`,
+  'soldier-76': `<path d="M23 20h54l-7 18H30l-7-18Z"/><path d="M12 56h70l12 8-12 8H45l-8 13H25l6-13H12V56Z"/>`,
+  'sombra': `<path d="M36 20h28l11 14-8 26-17 18-17-18-8-26 11-14Z"/><path d="M79 23h7v7h-7zM87 32h6v6h-6zM75 39h5v5h-5zM84 49h9v9h-9zM72 57h7v7h-7z"/>`,
+  'symmetra': `<path d="m50 14 30 52H20L50 14Z" fill="none" stroke="currentColor" stroke-width="6"/><circle cx="50" cy="51" r="8"/><path d="M50 59v25M42 84h16" stroke="currentColor" stroke-width="6"/>`,
+  'torbjorn': `<path d="M14 31h37v28H14z"/><rect x="24" y="20" width="17" height="12"/><path d="M32 59v23M17 82h30" stroke="currentColor" stroke-width="7"/><path d="M69 20h17v28H69z"/><rect x="74" y="45" width="7" height="40" rx="3"/><path d="M62 24h31v12H62z"/>`,
+  'tracer': `<path d="M6 44h33l8 7-8 8H23l-5 11H8l5-11H6V44Zm88 0H61l-8 7 8 8h16l5 11h10l-5-11h7V44Z"/><path d="m49 9-12 29h12l-5 20 19-30H51l5-19h-7Z"/>`,
+  'vendetta': `<path d="M50 7 66 30 58 65 50 92 42 65 34 30 50 7Z"/><path d="M20 58h60l-6 10H26l-6-10Z"/>`,
+  'venture': `<path d="M49 9 72 32 55 82 46 91 37 82 20 32 49 9Z"/><path d="M31 30h37M35 42h29M39 54h21M43 66h13" stroke="#fff" stroke-opacity=".3" stroke-width="4"/><path d="M10 78 24 65l7 18-21-5Zm80 0L76 65l-7 18 21-5Z"/>`,
+  'widowmaker': `<path d="M7 50h66l14 8-14 8H38l-7 13H18l6-13H7V50Z"/><circle cx="75" cy="26" r="8"/><circle cx="62" cy="37" r="5"/><circle cx="88" cy="37" r="5"/><path d="M75 34v20M68 35l-11-12M82 35l11-12M67 42l-14 1M83 42l14 1M67 50l-12 9M83 50l12 9" stroke="currentColor" stroke-width="4"/>`,
+  'winston': `<path d="M27 31c7-18 39-18 46 0l-5 30c-3 17-12 25-18 25s-15-8-18-25l-5-30Z"/><rect x="29" y="43" width="18" height="11" rx="4" fill="none" stroke="#fff" stroke-width="4"/><rect x="53" y="43" width="18" height="11" rx="4" fill="none" stroke="#fff" stroke-width="4"/><path d="M47 49h6M42 68h16" stroke="#fff" stroke-width="4"/>`,
+  'wrecking-ball': `<circle cx="50" cy="56" r="34" fill="none" stroke="currentColor" stroke-width="7"/><path d="M35 42 31 21l14 11 5-9 5 9 14-11-4 21-10-4H45l-10 4Z"/><circle cx="43" cy="49" r="3"/><circle cx="57" cy="49" r="3"/><path d="m44 58 6 4 6-4" fill="none" stroke="currentColor" stroke-width="3"/>`,
+  'wuyang': `<path d="M30 14c15 17 16 29 0 43-16-14-15-26 0-43Z"/><path d="M12 72c17-10 34-10 51 0M10 84c19-9 39-9 58 0" fill="none" stroke="currentColor" stroke-width="5"/><path d="M75 12v74M66 20l9-10 9 10M67 84h16" fill="none" stroke="currentColor" stroke-width="6"/>`,
+  'zarya': `<circle cx="31" cy="49" r="23" fill="none" stroke="currentColor" stroke-width="6"/><path d="M12 49h38M31 30v38M17 35l28 28M45 35 17 63" stroke="currentColor" stroke-width="2"/><path d="M56 53h19l8 7-8 8H58l-2-15Z"/><path d="m80 57 18-8v7l-15 5 15 5v7l-18-8"/>`,
+  'zenyatta': `<path d="M38 36h24l8 10-5 20-15 13-15-13-5-20 8-10Z"/><circle cx="50" cy="13" r="6"/><circle cx="27" cy="20" r="6"/><circle cx="73" cy="20" r="6"/><circle cx="18" cy="43" r="6"/><circle cx="82" cy="43" r="6"/><circle cx="24" cy="69" r="6"/><circle cx="76" cy="69" r="6"/><circle cx="50" cy="88" r="6"/>`
 };
 
 const SILHOUETTE_FULL = new Set(['bastion', 'echo', 'jetpack-cat', 'lifeweaver', 'orisa', 'wrecking-ball', 'zenyatta']);
@@ -124,7 +121,7 @@ function silhouetteSvg(hero) {
   return `<svg class="hero-silhouette" viewBox="0 0 100 100" aria-hidden="true">${body}</svg>`;
 }
 
-const ROLE_LABELS = { all: 'ALL', tank: 'TANK', damage: 'DAMAGE', support: 'SUPPORT' };
+const ROLE_LABELS = { all: '全ロール', tank: 'タンク', damage: 'ダメージ', support: 'サポート' };
 const ROLE_ORDER = ['tank', 'damage', 'support'];
 
 const state = {
@@ -132,7 +129,7 @@ const state = {
   banned: new Set(JSON.parse(localStorage.getItem('owRouletteBans') || '[]')),
   results: Array(6).fill(null),
   roles: ['tank', 'damage', 'damage', 'support', 'support', 'all'],
-  names: Array.from({ length: 6 }, (_, i) => `PLAYER ${i + 1}`),
+  names: Array.from({ length: 6 }, (_, i) => `プレイヤー${i + 1}`),
   spinning: false
 };
 
@@ -200,7 +197,7 @@ function renderPlayers() {
     roleSelect.value = state.roles[i];
 
     nameInput.addEventListener('input', e => {
-      state.names[i] = e.target.value || `PLAYER ${i + 1}`;
+      state.names[i] = e.target.value || `プレイヤー${i + 1}`;
     });
 
     roleSelect.addEventListener('change', e => {
@@ -233,9 +230,9 @@ function updateCard(card, hero, spinningHero = null) {
   if (!shown) {
     stage.classList.add(`role-${selectedRole}`);
     emblem.textContent = '?';
-    roleLabel.textContent = selectedRole === 'all' ? 'FLEX' : ROLE_LABELS[selectedRole];
+    roleLabel.textContent = selectedRole === 'all' ? 'フリー' : ROLE_LABELS[selectedRole];
     heroName.textContent = '—';
-    heroSub.textContent = 'WAITING';
+    heroSub.textContent = '待機中';
     return;
   }
 
@@ -243,7 +240,7 @@ function updateCard(card, hero, spinningHero = null) {
   emblem.innerHTML = silhouetteSvg(shown);
   roleLabel.textContent = ROLE_LABELS[shown.role];
   heroName.textContent = shown.name;
-  heroSub.textContent = hero ? 'LOCKED IN' : 'SELECTING...';
+  heroSub.textContent = hero ? '決定' : '抽選中…';
 }
 
 function setPlayers(count) {
@@ -352,8 +349,8 @@ async function spinAll() {
 
 function flashNoCandidate(card) {
   card.querySelector('.hero-emblem span').textContent = '!';
-  card.querySelector('.hero-name').textContent = 'NO HERO';
-  card.querySelector('.hero-sub').textContent = 'CHECK BAN / ROLE';
+  card.querySelector('.hero-name').textContent = '候補なし';
+  card.querySelector('.hero-sub').textContent = 'BAN / ロール確認';
 }
 
 function lockControls(value) {
@@ -389,7 +386,7 @@ function createHeroTile(hero) {
       <span class="hero-tile__slash"></span>
     </span>
     <strong>${hero.name}</strong>
-    <small>${isBanned ? 'BANNED' : 'AVAILABLE'}</small>
+    <small>${isBanned ? 'BAN中' : '使用可'}</small>
   `;
 
   btn.addEventListener('click', () => {
@@ -423,7 +420,7 @@ function renderBanGrid() {
     heading.innerHTML = `
       <span class="role-diamond"></span>
       <strong>${ROLE_LABELS[role]}</strong>
-      <small>${heroes.length} HEROES</small>
+      <small>${heroes.length} ヒーロー</small>
     `;
 
     const grid = document.createElement('div');
