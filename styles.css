@@ -196,16 +196,14 @@ h1 {
 
 .player-scroll {
   width: 100%;
-  overflow-x: auto;
+  overflow: hidden;
   padding: 0 3px 5px;
-  scrollbar-width: thin;
 }
 
 .player-grid {
   display: grid;
-  grid-auto-flow: column;
-  grid-auto-columns: minmax(150px, 1fr);
-  gap: 9px;
+  grid-template-columns: repeat(var(--player-count), minmax(0, 1fr));
+  gap: clamp(4px, .55vw, 9px);
   width: 100%;
 }
 
@@ -747,7 +745,7 @@ footer {
 
 @media (max-width: 1120px) {
   .app-shell { width: min(100% - 20px, 1480px); }
-  .player-grid { grid-auto-columns: 155px; width: max-content; min-width: 100%; }
+  .player-grid { width: 100%; }
   .hero-select-board { grid-template-columns: 1fr 1.35fr 1fr; gap: 10px; padding-inline: 12px; }
   .hero-role-grid { grid-template-columns: repeat(3, minmax(54px, 1fr)); }
   .role-group--damage .hero-role-grid { grid-template-columns: repeat(4, minmax(52px, 1fr)); }
@@ -762,7 +760,7 @@ footer {
   .availability { flex: 1; min-width: 50%; }
   .team-stage__label span:last-child { display: none; }
 
-  .player-grid { grid-auto-columns: 148px; }
+  .player-grid { width: 100%; gap: 4px; }
 
   .ban-dialog { width: 100%; height: 100dvh; border: 0; }
   .ban-header { grid-template-columns: 1fr auto 38px; padding: 12px; }
@@ -793,7 +791,7 @@ footer {
   .app-shell { width: calc(100% - 12px); padding-top: 16px; }
   h1 { font-size: 37px; }
   .control-unit, .availability { padding-inline: 10px; }
-  .player-grid { grid-auto-columns: 142px; gap: 6px; }
+  .player-grid { width: 100%; gap: 3px; }
   .result-stage { min-height: 194px; }
   .hero-portrait { height: 132px; }
 
@@ -805,4 +803,69 @@ footer {
 
   .ban-header__status { display: none; }
   .ban-header { grid-template-columns: 1fr 38px; }
+}
+
+
+/* Keep all active player cards inside one viewport row */
+@media (max-width: 980px) {
+  .player-card { padding: 5px; }
+  .player-card__number { font-size: 17px; right: 6px; top: 7px; }
+  .player-name-wrap { padding-right: 20px; margin-bottom: 4px; }
+  .player-name { height: 24px; padding-inline: 2px; font-size: clamp(7px, 1.05vw, 9px); }
+  .result-stage { min-height: 168px; }
+  .hero-portrait { height: 110px; }
+  .hero-emblem {
+    width: clamp(42px, 6vw, 64px);
+    height: clamp(42px, 6vw, 64px);
+    font-size: clamp(18px, 3vw, 28px);
+  }
+  .hero-info { padding: 7px 7px 6px; }
+  .role-label { font-size: 7px; letter-spacing: .1em; }
+  .hero-name { min-height: 20px; font-size: clamp(10px, 1.55vw, 16px); }
+  .hero-sub { font-size: 6px; letter-spacing: .06em; }
+  .role-select, .reroll-button {
+    height: 26px;
+    margin-top: 4px;
+    padding-inline: 3px;
+    font-size: clamp(6px, .95vw, 8px);
+    letter-spacing: .05em;
+  }
+}
+
+@media (max-width: 620px) {
+  .player-card { padding: 3px; }
+  .player-card::before { width: 70%; }
+  .player-card__number { display: none; }
+  .player-name-wrap { padding-right: 0; margin-bottom: 2px; }
+  .player-name {
+    height: 21px;
+    font-size: clamp(5px, 1.55vw, 7px);
+    letter-spacing: 0;
+  }
+  .result-stage {
+    min-height: 120px;
+    clip-path: polygon(4% 0, 100% 0, 96% 100%, 0 100%);
+  }
+  .hero-portrait { height: 76px; }
+  .hero-emblem {
+    width: clamp(28px, 8vw, 42px);
+    height: clamp(28px, 8vw, 42px);
+    font-size: clamp(13px, 4vw, 20px);
+  }
+  .scan-line { bottom: 5px; }
+  .hero-info { padding: 5px 3px 4px; }
+  .role-label { font-size: 5px; letter-spacing: 0; }
+  .hero-name {
+    min-height: 15px;
+    font-size: clamp(7px, 2vw, 10px);
+    letter-spacing: -.03em;
+  }
+  .hero-sub { display: none; }
+  .role-select, .reroll-button {
+    height: 22px;
+    margin-top: 2px;
+    padding: 0 1px;
+    font-size: clamp(5px, 1.45vw, 7px);
+    letter-spacing: 0;
+  }
 }
