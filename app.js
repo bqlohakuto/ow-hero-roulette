@@ -74,7 +74,7 @@ const SILHOUETTE_FEATURES = {
   'freja': `<path d="M16 50 47 22v56L16 50Zm68 0L53 22v56l31-28Z" fill="none" stroke="currentColor" stroke-width="6"/><rect x="47" y="13" width="6" height="74" rx="3"/><path d="M67 22c10 7 13 15 12 26-8-3-14-8-18-16l6-10Z"/>`,
   'genji': `<path d="m24 21 9 18 20-3-14 15 9 18-20-7-15 14 4-21L2 41l21 3 1-23Z"/><path d="M61 18 90 47 82 55 53 26l8-8Z"/>`,
   'hanzo': `<path d="M26 18c28 12 28 52 0 68 17-22 17-46 0-68Z" fill="none" stroke="currentColor" stroke-width="7"/><path d="M28 52h39M61 47l7 5-7 5" stroke="currentColor" stroke-width="5"/><path d="M66 25c16 1 22 12 13 22-5 6-12 4-15 10-3 6 3 12 12 11-8 11-25 5-25-8 0-13 14-14 18-21 4-7-2-12-3-14Z"/>`,
-  'hazard': `<path d="m50 12 10 13 18-6-5 17 15 10-16 9 7 18-18-5-11 19-11-18-19 6 6-19-16-9 16-11-5-18 18 7 11-13Z"/><path d="m34 33 13-8 14 7 8 13-8 15-18 8-13-13 4-22Z" fill="none" stroke="#fff" stroke-opacity=".25" stroke-width="3"/>`,
+  'hazard': `<path d="m50 12 10 13 18-6-5 17 15 10-16 9 7 18-18-5-11 19-11-18-19 6 6-19-16-9 16-11-5-18 18 7 11-13Z"/><path d="m34 33 13-8 14 7 8 13-8 15-18 8-13-13 4-22Z" fill="none" stroke="currentColor" stroke-opacity=".25" stroke-width="3"/>`,
   'illari': `<circle cx="31" cy="30" r="13"/><path d="M31 5v12M31 43v12M6 30h12M44 30h12M13 12l9 9M40 39l9 9M49 12l-9 9M22 39l-9 9" stroke="currentColor" stroke-width="5"/><path d="M40 58h48l8 7-8 8H61l-7 12H44l5-12h-9V58Z"/>`,
   'jetpack-cat': `<path d="M31 42 23 17l18 11 9-8 9 8 18-11-8 25-12-7H43l-12 7Z"/><circle cx="42" cy="46" r="3"/><circle cx="58" cy="46" r="3"/><path d="M15 61h17v27H15zM68 61h17v27H68z"/>`,
   'junker-queen': `<path d="m17 77 29-51 10 6-29 51-10-6Z"/><path d="M37 18 64 8l-10 28-17-18Z"/><path d="m58 76 20-37 8 4-20 37-8-4Z"/><path d="m74 33 15 4-8 12-7-16Z"/>`,
@@ -83,7 +83,7 @@ const SILHOUETTE_FEATURES = {
   'kiriko': `<path d="M31 42 23 16l18 12 9-10 9 10 18-12-8 26-12-7H43l-12 7Z"/><path d="M14 70 27 55l8 7-13 15-8-7ZM64 56h20v29H64z"/>`,
   'lifeweaver': `<path d="M50 9 59 29 80 20 70 42 91 50 70 58 80 80 59 71 50 91 41 71 20 80 30 58 9 50 30 42 20 20 41 29 50 9Z"/>`,
   'lucio': `<circle cx="55" cy="57" r="18" fill="none" stroke="currentColor" stroke-width="7"/><path d="M28 37c-10 7-15 16-15 27M38 44c-6 4-9 10-9 19M73 25v25c0 8 13 8 13-1 0-7-8-9-13-5" fill="none" stroke="currentColor" stroke-width="6"/>`,
-  'mauga': `<path d="M50 7c4 14 15 17 10 30 9-6 14-15 14-25 12 13 15 30 4 42H22c-11-13-6-30 9-43-1 12 3 20 11 26-3-13 5-20 8-30Z"/><rect x="7" y="57" width="36" height="20" rx="6"/><rect x="57" y="57" width="36" height="20" rx="6"/><path d="M13 61v12m8-12v12m8-12v12m8-12v12m27-12v12m8-12v12m8-12v12m8-12v12" stroke="#fff" stroke-opacity=".28" stroke-width="3"/>`,
+  'mauga': `<path d="M50 7c4 14 15 17 10 30 9-6 14-15 14-25 12 13 15 30 4 42H22c-11-13-6-30 9-43-1 12 3 20 11 26-3-13 5-20 8-30Z"/><rect x="7" y="57" width="36" height="20" rx="6"/><rect x="57" y="57" width="36" height="20" rx="6"/><path d="M13 61v12m8-12v12m8-12v12m8-12v12m27-12v12m8-12v12m8-12v12m8-12v12" stroke="currentColor" stroke-opacity=".28" stroke-width="3"/>`,
   'mei': `<path d="M28 10v80M10 28l80 44M10 72l80-44M16 50h84" stroke="currentColor" stroke-width="5"/><path d="M61 58h27l8 7-8 8H63l-2-15Z"/>`,
   'mercy': `<ellipse cx="50" cy="16" rx="17" ry="6" fill="none" stroke="currentColor" stroke-width="5"/><path d="M34 47 8 31l9 38 20 14-3-36Zm32 0 26-16-9 38-20 14 3-36Z"/><path d="M50 35v52M43 87h14" stroke="currentColor" stroke-width="6"/>`,
   'mizuki': `<path d="M9 43c13-26 69-26 82 0-12-4-21-4-31 0-8-5-16-5-24 0-9-4-17-4-27 0Z" fill="none" stroke="currentColor" stroke-width="6"/><path d="M50 17v29" stroke="currentColor" stroke-width="5"/><path d="M37 63c14-17 32-20 46-12-4 26-20 37-42 37 15-7 24-18 25-30-11-2-19 2-25 10l-4-5Z"/><rect x="33" y="61" width="7" height="31" rx="3" transform="rotate(25 36 76)"/>`,
@@ -96,7 +96,7 @@ const SILHOUETTE_FEATURES = {
   'roadhog': `<path d="M16 19c14-14 34-7 37 7 3 15-11 21-22 15-10-5-8-18 2-24" fill="none" stroke="currentColor" stroke-width="7"/><path d="m16 18 11-8 7 10" fill="none" stroke="currentColor" stroke-width="7"/><circle cx="70" cy="53" r="22" fill="none" stroke="currentColor" stroke-width="6"/><circle cx="61" cy="49" r="6"/><circle cx="79" cy="49" r="6"/><path d="M59 67h22l-4-12H63l-4 12ZM48 52h-8M92 52h-8" stroke="currentColor" stroke-width="6"/>`,
   'shion': `<path d="M8 26h31l9 7-9 8H23l-5 11H8l5-11H8V26Zm84 0H61l-9 7 9 8h16l5 11h10l-5-11h5V26Z"/><circle cx="31" cy="78" r="12" fill="none" stroke="currentColor" stroke-width="6"/><circle cx="72" cy="78" r="12" fill="none" stroke="currentColor" stroke-width="6"/><path d="M31 78h41L60 61H45L31 78Z"/>`,
   'sierra': `<circle cx="36" cy="37" r="22" fill="none" stroke="currentColor" stroke-width="5"/><path d="M36 7v16M36 51v16M6 37h16M50 37h16" stroke="currentColor" stroke-width="5"/><path d="M39 61h51l7 7-7 7H62l-7 11H44l5-11H39V61Z"/>`,
-  'sigma': `<path d="m50 15 17 10 5 19-12 18-23 4-16-13 3-21 10-14 16-3Z"/><path d="m34 28 13-5 14 9-4 17-17 8-11-11 5-18Z" fill="none" stroke="#fff" stroke-opacity=".25" stroke-width="3"/><circle cx="14" cy="72" r="10"/><circle cx="86" cy="72" r="10"/>`,
+  'sigma': `<path d="m50 15 17 10 5 19-12 18-23 4-16-13 3-21 10-14 16-3Z"/><path d="m34 28 13-5 14 9-4 17-17 8-11-11 5-18Z" fill="none" stroke="currentColor" stroke-opacity=".25" stroke-width="3"/><circle cx="14" cy="72" r="10"/><circle cx="86" cy="72" r="10"/>`,
   'sojourn': `<path d="M17 16h11l7 32-9 37H13l10-38-6-31Zm38 0h11l7 31 14 38H74L62 49l-7-33Z"/><path d="M33 55h55l8 7-8 8H59l-7 13H41l5-13H33V55Z"/>`,
   'soldier-76': `<path d="M23 20h54l-7 18H30l-7-18Z"/><path d="M12 56h70l12 8-12 8H45l-8 13H25l6-13H12V56Z"/>`,
   'sombra': `<path d="M36 20h28l11 14-8 26-17 18-17-18-8-26 11-14Z"/><path d="M79 23h7v7h-7zM87 32h6v6h-6zM75 39h5v5h-5zM84 49h9v9h-9zM72 57h7v7h-7z"/>`,
@@ -104,9 +104,9 @@ const SILHOUETTE_FEATURES = {
   'torbjorn': `<path d="M14 31h37v28H14z"/><rect x="24" y="20" width="17" height="12"/><path d="M32 59v23M17 82h30" stroke="currentColor" stroke-width="7"/><path d="M69 20h17v28H69z"/><rect x="74" y="45" width="7" height="40" rx="3"/><path d="M62 24h31v12H62z"/>`,
   'tracer': `<path d="M6 44h33l8 7-8 8H23l-5 11H8l5-11H6V44Zm88 0H61l-8 7 8 8h16l5 11h10l-5-11h7V44Z"/><path d="m49 9-12 29h12l-5 20 19-30H51l5-19h-7Z"/>`,
   'vendetta': `<path d="M50 7 66 30 58 65 50 92 42 65 34 30 50 7Z"/><path d="M20 58h60l-6 10H26l-6-10Z"/>`,
-  'venture': `<path d="M49 9 72 32 55 82 46 91 37 82 20 32 49 9Z"/><path d="M31 30h37M35 42h29M39 54h21M43 66h13" stroke="#fff" stroke-opacity=".3" stroke-width="4"/><path d="M10 78 24 65l7 18-21-5Zm80 0L76 65l-7 18 21-5Z"/>`,
+  'venture': `<path d="M49 9 72 32 55 82 46 91 37 82 20 32 49 9Z"/><path d="M31 30h37M35 42h29M39 54h21M43 66h13" stroke="currentColor" stroke-opacity=".3" stroke-width="4"/><path d="M10 78 24 65l7 18-21-5Zm80 0L76 65l-7 18 21-5Z"/>`,
   'widowmaker': `<path d="M7 50h66l14 8-14 8H38l-7 13H18l6-13H7V50Z"/><circle cx="75" cy="26" r="8"/><circle cx="62" cy="37" r="5"/><circle cx="88" cy="37" r="5"/><path d="M75 34v20M68 35l-11-12M82 35l11-12M67 42l-14 1M83 42l14 1M67 50l-12 9M83 50l12 9" stroke="currentColor" stroke-width="4"/>`,
-  'winston': `<path d="M27 31c7-18 39-18 46 0l-5 30c-3 17-12 25-18 25s-15-8-18-25l-5-30Z"/><rect x="29" y="43" width="18" height="11" rx="4" fill="none" stroke="#fff" stroke-width="4"/><rect x="53" y="43" width="18" height="11" rx="4" fill="none" stroke="#fff" stroke-width="4"/><path d="M47 49h6M42 68h16" stroke="#fff" stroke-width="4"/>`,
+  'winston': `<path d="M27 31c7-18 39-18 46 0l-5 30c-3 17-12 25-18 25s-15-8-18-25l-5-30Z"/><rect x="29" y="43" width="18" height="11" rx="4" fill="none" stroke="currentColor" stroke-width="4"/><rect x="53" y="43" width="18" height="11" rx="4" fill="none" stroke="currentColor" stroke-width="4"/><path d="M47 49h6M42 68h16" stroke="currentColor" stroke-width="4"/>`,
   'wrecking-ball': `<circle cx="50" cy="56" r="34" fill="none" stroke="currentColor" stroke-width="7"/><path d="M35 42 31 21l14 11 5-9 5 9 14-11-4 21-10-4H45l-10 4Z"/><circle cx="43" cy="49" r="3"/><circle cx="57" cy="49" r="3"/><path d="m44 58 6 4 6-4" fill="none" stroke="currentColor" stroke-width="3"/>`,
   'wuyang': `<path d="M30 14c15 17 16 29 0 43-16-14-15-26 0-43Z"/><path d="M12 72c17-10 34-10 51 0M10 84c19-9 39-9 58 0" fill="none" stroke="currentColor" stroke-width="5"/><path d="M75 12v74M66 20l9-10 9 10M67 84h16" fill="none" stroke="currentColor" stroke-width="6"/>`,
   'zarya': `<circle cx="31" cy="49" r="23" fill="none" stroke="currentColor" stroke-width="6"/><path d="M12 49h38M31 30v38M17 35l28 28M45 35 17 63" stroke="currentColor" stroke-width="2"/><path d="M56 53h19l8 7-8 8H58l-2-15Z"/><path d="m80 57 18-8v7l-15 5 15 5v7l-18-8"/>`,
@@ -118,7 +118,7 @@ const SILHOUETTE_FULL = new Set(['bastion', 'echo', 'jetpack-cat', 'lifeweaver',
 function silhouetteSvg(hero) {
   const detail = SILHOUETTE_FEATURES[hero.id] || '';
   const body = SILHOUETTE_FULL.has(hero.id) ? detail : SILHOUETTE_BASE + detail;
-  return `<svg class="hero-silhouette" viewBox="0 0 100 100" aria-hidden="true">${body}</svg>`;
+  return `<svg class="hero-icon-svg" viewBox="0 0 100 100" aria-hidden="true">${body}</svg>`;
 }
 
 const ROLE_LABELS = { all: '全ロール', tank: 'タンク', damage: 'ダメージ', support: 'サポート' };
