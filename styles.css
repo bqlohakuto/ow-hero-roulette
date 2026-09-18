@@ -882,7 +882,7 @@ footer {
   font-size: 0;
 }
 
-.hero-icon-svg {
+.hero-icon-sprite {
   width: 100%;
   height: 100%;
   display: block;
@@ -909,7 +909,7 @@ footer {
   filter: none;
 }
 
-.hero-tile__icon .hero-icon-svg {
+.hero-tile__icon .hero-icon-sprite {
   width: 100%;
   height: 100%;
   color: #aeb4bd;
@@ -928,7 +928,7 @@ footer {
   font-size: 7px;
 }
 
-.hero-tile.banned .hero-tile__icon .hero-icon-svg {
+.hero-tile.banned .hero-tile__icon .hero-icon-sprite {
   color: #8c9098;
 }
 
@@ -960,4 +960,12 @@ footer {
   .hero-tile strong {
     font-size: 9px;
   }
+}
+
+
+/* Confirmed generated icon sprites */
+.hero-icon-sprite {
+  background-repeat: no-repeat;
+  background-color: transparent;
+  image-rendering: auto;
 }
