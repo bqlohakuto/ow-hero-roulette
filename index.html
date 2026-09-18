@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="theme-color" content="#101729" />
-  <title>OW HERO ROULETTE</title>
+  <title>OW ヒーロールーレット</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
@@ -12,19 +12,19 @@
   <main class="app-shell">
     <header class="top-header">
       <div>
-        <p class="eyebrow">CUSTOM HERO PICK</p>
-        <h1>ASSEMBLE YOUR TEAM</h1>
-        <p class="subtitle">RANDOM HERO ROULETTE / 1–6 PLAYERS / HERO BAN</p>
+        <p class="eyebrow">カスタムヒーローピック</p>
+        <h1>チームを編成</h1>
+        <p class="subtitle">ランダムヒーロールーレット / 1〜6人 / ヒーローBAN</p>
       </div>
       <button id="openBanBtn" class="ban-open" type="button" aria-haspopup="dialog">
         <span class="ban-open__mark">⊘</span>
-        <span><small>HERO BAN</small><strong><span id="banCount">0</span> BANNED</strong></span>
+        <span><small>ヒーローBAN</small><strong><span id="banCount">0</span> BAN中</strong></span>
       </button>
     </header>
 
     <section class="control-bar" aria-label="抽選設定">
       <div class="control-unit">
-        <span class="control-label">PLAYERS</span>
+        <span class="control-label">プレイヤー人数</span>
         <div class="stepper">
           <button id="minusPlayer" type="button" aria-label="人数を減らす">−</button>
           <strong id="playerCount">5</strong>
@@ -33,24 +33,24 @@
       </div>
 
       <div class="control-unit preset-unit">
-        <span class="control-label">ROLE PRESET</span>
+        <span class="control-label">ロールプリセット</span>
         <div class="preset-row">
           <button type="button" class="preset-btn active" data-preset="5v5">5v5</button>
           <button type="button" class="preset-btn" data-preset="6v6">6v6</button>
-          <button type="button" class="preset-btn" data-preset="free">FREE</button>
+          <button type="button" class="preset-btn" data-preset="free">フリー</button>
         </div>
       </div>
 
       <div class="availability">
-        <span class="control-label">AVAILABLE HEROES</span>
+        <span class="control-label">使用可能ヒーロー</span>
         <strong><span id="availableCount">53</span><em>/</em><span id="heroTotal">53</span></strong>
       </div>
     </section>
 
     <section class="team-stage">
       <div class="team-stage__label">
-        <span>YOUR TEAM</span>
-        <span id="teamHint">SELECT ROLES, THEN SPIN</span>
+        <span>あなたのチーム</span>
+        <span id="teamHint">ロールを選んで抽選</span>
       </div>
       <div class="player-scroll">
         <section id="playerGrid" class="player-grid" aria-live="polite"></section>
@@ -60,14 +60,14 @@
     <section class="action-zone">
       <button id="spinAllBtn" class="spin-button" type="button">
         <span class="spin-button__flare"></span>
-        <small>RANDOM PICK</small>
-        <strong>SPIN</strong>
+        <small>ランダムピック</small>
+        <strong>抽選</strong>
       </button>
-      <button id="clearResultsBtn" class="secondary-button" type="button">RESET PICKS</button>
+      <button id="clearResultsBtn" class="secondary-button" type="button">結果をリセット</button>
     </section>
 
     <footer>
-      <p>Fan-made utility. Hero visuals use original symbolic motifs.</p>
+      <p>ファンメイドのツールです。ヒーロー画像にはオリジナルのシンボルアイコンを使用しています。</p>
     </footer>
   </main>
 
@@ -79,14 +79,14 @@
         <div class="ban-header__side">
           <span class="accent-line"></span>
           <div>
-            <p class="ban-kicker">CUSTOM MATCH</p>
-            <h2>BAN HEROES</h2>
+            <p class="ban-kicker">カスタムマッチ</p>
+            <h2>ヒーローBAN</h2>
             <p class="ban-description">抽選対象から外すヒーローを選択</p>
           </div>
         </div>
 
         <div class="ban-header__status">
-          <span>BANNED</span>
+          <span>BAN中</span>
           <strong id="modalBanCount">0</strong>
         </div>
 
@@ -96,7 +96,7 @@
       <div class="ban-toolbar">
         <label class="hero-search">
           <span>⌕</span>
-          <input id="heroSearch" type="search" placeholder="HERO SEARCH" autocomplete="off" />
+          <input id="heroSearch" type="search" placeholder="ヒーロー検索" autocomplete="off" />
         </label>
         <p>タイルをタップして BAN / もう一度タップで解除</p>
       </div>
@@ -104,9 +104,9 @@
       <section id="banHeroGrid" class="hero-select-board"></section>
 
       <footer class="ban-footer">
-        <button id="clearBanBtn" type="button" class="ow-button ow-button--light">RESET</button>
+        <button id="clearBanBtn" type="button" class="ow-button ow-button--light">BANをリセット</button>
         <button id="banVisibleBtn" type="button" class="ow-button ow-button--dark">表示中をすべてBAN</button>
-        <button class="ow-button ow-button--ready" value="default">READY</button>
+        <button class="ow-button ow-button--ready" value="default">完了</button>
       </footer>
     </form>
   </dialog>
@@ -125,20 +125,20 @@
           <div class="scan-line" aria-hidden="true"></div>
         </div>
         <div class="hero-info">
-          <span class="role-label">READY</span>
+          <span class="role-label">待機</span>
           <strong class="hero-name">—</strong>
-          <small class="hero-sub">WAITING</small>
+          <small class="hero-sub">待機中</small>
         </div>
       </div>
 
       <select class="role-select" aria-label="ロール選択">
-        <option value="all">ALL</option>
-        <option value="tank">TANK</option>
-        <option value="damage">DAMAGE</option>
-        <option value="support">SUPPORT</option>
+        <option value="all">全ロール</option>
+        <option value="tank">タンク</option>
+        <option value="damage">ダメージ</option>
+        <option value="support">サポート</option>
       </select>
 
-      <button class="reroll-button" type="button">↻ REROLL</button>
+      <button class="reroll-button" type="button">↻ 再抽選</button>
     </article>
   </template>
 
