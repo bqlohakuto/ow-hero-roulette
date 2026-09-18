@@ -55,13 +55,14 @@ const HEROES = [
 ];
 
 const ROLE_LABELS = { all: 'ALL', tank: 'TANK', damage: 'DAMAGE', support: 'SUPPORT' };
+const ROLE_ORDER = ['tank', 'damage', 'support'];
+
 const state = {
   players: 5,
   banned: new Set(JSON.parse(localStorage.getItem('owRouletteBans') || '[]')),
   results: Array(6).fill(null),
   roles: ['tank', 'damage', 'damage', 'support', 'support', 'all'],
   names: Array.from({ length: 6 }, (_, i) => `PLAYER ${i + 1}`),
-  filterRole: 'all',
   spinning: false
 };
 
@@ -89,10 +90,10 @@ els.heroTotal.textContent = HEROES.length;
 
 function randomInt(max) {
   if (max <= 0) return 0;
-  if (crypto?.getRandomValues) {
+  if (window.crypto?.getRandomValues) {
     const limit = Math.floor(0x100000000 / max) * max;
     const array = new Uint32Array(1);
-    do crypto.getRandomValues(array); while (array[0] >= limit);
+    do window.crypto.getRandomValues(array); while (array[0] >= limit);
     return array[0] % max;
   }
   return Math.floor(Math.random() * max);
@@ -100,34 +101,52 @@ function randomInt(max) {
 
 function pickRandom(list) { return list[randomInt(list.length)]; }
 function roleHeroes(role) { return HEROES.filter(h => role === 'all' || h.role === role); }
+
 function candidatesFor(playerIndex, excludeCurrentPlayer = false) {
-  const used = new Set(state.results.slice(0, state.players).map((r, i) => (excludeCurrentPlayer && i === playerIndex) ? null : r?.id).filter(Boolean));
-  return roleHeroes(state.roles[playerIndex]).filter(h => !state.banned.has(h.id) && !used.has(h.id));
+  const used = new Set(
+    state.results
+      .slice(0, state.players)
+      .map((r, i) => (excludeCurrentPlayer && i === playerIndex) ? null : r?.id)
+      .filter(Boolean)
+  );
+
+  return roleHeroes(state.roles[playerIndex])
+    .filter(h => !state.banned.has(h.id) && !used.has(h.id));
 }
 
 function renderPlayers() {
   els.playerGrid.innerHTML = '';
+
   for (let i = 0; i < state.players; i++) {
     const fragment = els.template.content.cloneNode(true);
     const card = fragment.querySelector('.player-card');
+    const number = fragment.querySelector('.player-card__number');
     const nameInput = fragment.querySelector('.player-name');
     const roleSelect = fragment.querySelector('.role-select');
     const reroll = fragment.querySelector('.reroll-button');
 
+    number.textContent = String(i + 1).padStart(2, '0');
     nameInput.value = state.names[i];
     roleSelect.value = state.roles[i];
-    nameInput.addEventListener('input', e => { state.names[i] = e.target.value || `PLAYER ${i + 1}`; });
+
+    nameInput.addEventListener('input', e => {
+      state.names[i] = e.target.value || `PLAYER ${i + 1}`;
+    });
+
     roleSelect.addEventListener('change', e => {
       state.roles[i] = e.target.value;
       state.results[i] = null;
       updateCard(card, null);
       clearPresetHighlight();
     });
+
     reroll.addEventListener('click', () => spinOne(i, card));
     updateCard(card, state.results[i]);
     els.playerGrid.append(fragment);
   }
+
   els.playerCount.textContent = state.players;
+  els.playerGrid.style.setProperty('--player-count', state.players);
 }
 
 function updateCard(card, hero, spinningHero = null) {
@@ -137,23 +156,30 @@ function updateCard(card, hero, spinningHero = null) {
   const roleLabel = card.querySelector('.role-label');
   const heroName = card.querySelector('.hero-name');
   const heroSub = card.querySelector('.hero-sub');
+  const selectedRole = card.querySelector('.role-select')?.value || 'all';
+
   stage.classList.remove('role-all', 'role-tank', 'role-damage', 'role-support');
 
   if (!shown) {
-    stage.classList.add(`role-${card.querySelector('.role-select')?.value || 'all'}`);
-    emblem.textContent = '?'; roleLabel.textContent = 'READY'; heroName.textContent = '—'; heroSub.textContent = 'SPIN TO PICK';
+    stage.classList.add(`role-${selectedRole}`);
+    emblem.textContent = '?';
+    roleLabel.textContent = selectedRole === 'all' ? 'FLEX' : ROLE_LABELS[selectedRole];
+    heroName.textContent = '—';
+    heroSub.textContent = 'WAITING';
     return;
   }
+
   stage.classList.add(`role-${shown.role}`);
   emblem.textContent = shown.icon;
   roleLabel.textContent = ROLE_LABELS[shown.role];
   heroName.textContent = shown.name;
-  heroSub.textContent = hero ? 'LOCKED IN' : 'ROULETTE...';
+  heroSub.textContent = hero ? 'LOCKED IN' : 'SELECTING...';
 }
 
 function setPlayers(count) {
   const next = Math.min(6, Math.max(1, count));
   if (next === state.players) return;
+
   state.players = next;
   state.results = state.results.map((v, i) => i < next ? v : null);
   clearPresetHighlight();
@@ -170,54 +196,73 @@ function applyPreset(type) {
   } else {
     state.roles = Array(6).fill('all');
   }
+
   state.results = Array(6).fill(null);
-  document.querySelectorAll('.preset-btn').forEach(b => b.classList.toggle('active', b.dataset.preset === type));
+  document.querySelectorAll('.preset-btn')
+    .forEach(b => b.classList.toggle('active', b.dataset.preset === type));
+
   renderPlayers();
 }
 
-function clearPresetHighlight() { document.querySelectorAll('.preset-btn').forEach(b => b.classList.remove('active')); }
+function clearPresetHighlight() {
+  document.querySelectorAll('.preset-btn').forEach(b => b.classList.remove('active'));
+}
 
-function animateCard(card, pool, duration = 780) {
+function animateCard(card, pool, duration = 700) {
   return new Promise(resolve => {
     const stage = card.querySelector('.result-stage');
     stage.classList.add('spinning');
-    let ticks = 0;
+
     const interval = setInterval(() => {
       updateCard(card, null, pickRandom(pool));
-      ticks++;
-    }, 64);
+    }, 58);
+
     setTimeout(() => {
       clearInterval(interval);
       stage.classList.remove('spinning');
       resolve();
-    }, duration + ticks * 2);
+    }, duration);
   });
 }
 
 async function spinOne(index, existingCard = null) {
   if (state.spinning) return;
+
   const card = existingCard || els.playerGrid.children[index];
   const pool = candidatesFor(index, true);
+
   if (!pool.length) {
     flashNoCandidate(card);
     return;
   }
+
   state.spinning = true;
   lockControls(true);
-  await animateCard(card, pool, 720);
+  await animateCard(card, pool, 680);
+
   const chosen = pickRandom(pool);
   state.results[index] = chosen;
   updateCard(card, chosen);
+
   state.spinning = false;
   lockControls(false);
 }
 
 async function spinAll() {
   if (state.spinning) return;
+
   state.spinning = true;
   state.results = Array(6).fill(null);
   lockControls(true);
+
   const cards = [...els.playerGrid.children];
+
+  const animations = cards.slice(0, state.players).map((card, i) => {
+    const pool = roleHeroes(state.roles[i]).filter(h => !state.banned.has(h.id));
+    return pool.length ? animateCard(card, pool, 620 + i * 55) : Promise.resolve();
+  });
+
+  await Promise.all(animations);
 
   for (let i = 0; i < state.players; i++) {
     const pool = candidatesFor(i, false);
@@ -225,7 +270,7 @@ async function spinAll() {
       flashNoCandidate(cards[i]);
       continue;
     }
-    await animateCard(cards[i], pool, 440 + i * 45);
+
     const chosen = pickRandom(pool);
     state.results[i] = chosen;
     updateCard(cards[i], chosen);
@@ -236,17 +281,19 @@ async function spinAll() {
 }
 
 function flashNoCandidate(card) {
-  const heroName = card.querySelector('.hero-name');
-  const sub = card.querySelector('.hero-sub');
-  heroName.textContent = 'NO HERO';
-  sub.textContent = 'BAN / ROLE設定を確認';
+  card.querySelector('.hero-emblem span').textContent = '!';
+  card.querySelector('.hero-name').textContent = 'NO HERO';
+  card.querySelector('.hero-sub').textContent = 'CHECK BAN / ROLE';
 }
 
 function lockControls(value) {
   els.spinAllBtn.disabled = value;
   els.minusPlayer.disabled = value;
   els.plusPlayer.disabled = value;
-  document.querySelectorAll('.reroll-button, .role-select, .preset-btn').forEach(el => el.disabled = value);
+
+  document
+    .querySelectorAll('.reroll-button, .role-select, .preset-btn')
+    .forEach(el => el.disabled = value);
 }
 
 function clearResults() {
@@ -256,30 +303,74 @@ function clearResults() {
 
 function visibleBanHeroes() {
   const q = els.heroSearch.value.trim().toLowerCase();
-  return HEROES.filter(hero => {
-    const roleMatch = state.filterRole === 'all' || hero.role === state.filterRole;
-    const nameMatch = !q || hero.name.toLowerCase().includes(q);
-    return roleMatch && nameMatch;
+  return HEROES.filter(hero => !q || hero.name.toLowerCase().includes(q));
+}
+
+function createHeroTile(hero) {
+  const btn = document.createElement('button');
+  const isBanned = state.banned.has(hero.id);
+
+  btn.type = 'button';
+  btn.className = `hero-tile${isBanned ? ' banned' : ''}`;
+  btn.setAttribute('aria-pressed', String(isBanned));
+  btn.innerHTML = `
+    <span class="hero-tile__portrait">
+      <span class="hero-tile__icon">${hero.icon}</span>
+      <span class="hero-tile__slash"></span>
+    </span>
+    <strong>${hero.name}</strong>
+    <small>${isBanned ? 'BANNED' : 'AVAILABLE'}</small>
+  `;
+
+  btn.addEventListener('click', () => {
+    if (state.banned.has(hero.id)) {
+      state.banned.delete(hero.id);
+    } else {
+      state.banned.add(hero.id);
+    }
+
+    persistBans();
+    renderBanGrid();
+    updateCounts();
   });
+
+  return btn;
 }
 
 function renderBanGrid() {
   els.banHeroGrid.innerHTML = '';
-  visibleBanHeroes().forEach(hero => {
-    const btn = document.createElement('button');
-    btn.type = 'button';
-    btn.className = `ban-card${state.banned.has(hero.id) ? ' banned' : ''}`;
-    btn.innerHTML = `<div class="ban-card__top"><span class="ban-card__icon">${hero.icon}</span><span class="ban-card__role">${ROLE_LABELS[hero.role]}</span></div><strong>${hero.name}</strong><small>${state.banned.has(hero.id) ? '抽選対象外' : 'クリックでBAN'}</small>`;
-    btn.addEventListener('click', () => {
-      if (state.banned.has(hero.id)) state.banned.delete(hero.id); else state.banned.add(hero.id);
-      persistBans(); renderBanGrid(); updateCounts();
-    });
-    els.banHeroGrid.append(btn);
+  const visible = visibleBanHeroes();
+
+  ROLE_ORDER.forEach(role => {
+    const heroes = visible.filter(hero => hero.role === role);
+    if (!heroes.length) return;
+
+    const group = document.createElement('section');
+    group.className = `hero-role-group role-group--${role}`;
+
+    const heading = document.createElement('header');
+    heading.className = 'hero-role-group__header';
+    heading.innerHTML = `
+      <span class="role-diamond"></span>
+      <strong>${ROLE_LABELS[role]}</strong>
+      <small>${heroes.length} HEROES</small>
+    `;
+
+    const grid = document.createElement('div');
+    grid.className = 'hero-role-grid';
+    heroes.forEach(hero => grid.append(createHeroTile(hero)));
+
+    group.append(heading, grid);
+    els.banHeroGrid.append(group);
   });
+
   updateCounts();
 }
 
-function persistBans() { localStorage.setItem('owRouletteBans', JSON.stringify([...state.banned])); }
+function persistBans() {
+  localStorage.setItem('owRouletteBans', JSON.stringify([...state.banned]));
+}
+
 function updateCounts() {
   els.banCount.textContent = state.banned.size;
   els.modalBanCount.textContent = state.banned.size;
@@ -290,16 +381,31 @@ els.minusPlayer.addEventListener('click', () => setPlayers(state.players - 1));
 els.plusPlayer.addEventListener('click', () => setPlayers(state.players + 1));
 els.spinAllBtn.addEventListener('click', spinAll);
 els.clearResultsBtn.addEventListener('click', clearResults);
-els.openBanBtn.addEventListener('click', () => { renderBanGrid(); els.banDialog.showModal(); });
-els.heroSearch.addEventListener('input', renderBanGrid);
-els.clearBanBtn.addEventListener('click', () => { state.banned.clear(); persistBans(); renderBanGrid(); updateCounts(); });
-els.banVisibleBtn.addEventListener('click', () => { visibleBanHeroes().forEach(h => state.banned.add(h.id)); persistBans(); renderBanGrid(); updateCounts(); });
-document.querySelectorAll('.role-filter-btn').forEach(btn => btn.addEventListener('click', () => {
-  state.filterRole = btn.dataset.role;
-  document.querySelectorAll('.role-filter-btn').forEach(b => b.classList.toggle('active', b === btn));
+
+els.openBanBtn.addEventListener('click', () => {
   renderBanGrid();
-}));
-document.querySelectorAll('.preset-btn').forEach(btn => btn.addEventListener('click', () => applyPreset(btn.dataset.preset)));
+  els.banDialog.showModal();
+});
+
+els.heroSearch.addEventListener('input', renderBanGrid);
+
+els.clearBanBtn.addEventListener('click', () => {
+  state.banned.clear();
+  persistBans();
+  renderBanGrid();
+  updateCounts();
+});
+
+els.banVisibleBtn.addEventListener('click', () => {
+  visibleBanHeroes().forEach(h => state.banned.add(h.id));
+  persistBans();
+  renderBanGrid();
+  updateCounts();
+});
+
+document.querySelectorAll('.preset-btn').forEach(btn => {
+  btn.addEventListener('click', () => applyPreset(btn.dataset.preset));
+});
 
 updateCounts();
 renderPlayers();
