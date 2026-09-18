@@ -55,37 +55,8 @@ const HEROES = [
 ];
 
 
-const HERO_SPRITES = {
-  tank: {
-    cols: 5,
-    rows: 3,
-    ids: ['dmon','dva','domina','doomfist','hazard','junker-queen','mauga','orisa','ramattra','reinhardt','roadhog','sigma','winston','wrecking-ball','zarya']
-  },
-  damage: {
-    cols: 6,
-    rows: 4,
-    ids: ['anran','ashe','bastion','cassidy','echo','emre','freja','genji','hanzo','junkrat','mei','pharah','reaper','shion','sierra','sojourn','soldier-76','sombra','symmetra','torbjorn','tracer','vendetta','venture','widowmaker']
-  },
-  support: {
-    cols: 5,
-    rows: 3,
-    ids: ['ana','baptiste','brigitte','illari','jetpack-cat','juno','kiriko','lifeweaver','lucio','mercy','mizuki','moira','wuyang','zenyatta']
-  }
-};
-
 function heroIconSvg(hero) {
-  const sheet = HERO_SPRITES[hero.role];
-  if (!sheet) return '';
-
-  const index = sheet.ids.indexOf(hero.id);
-  if (index < 0) return '';
-
-  const col = index % sheet.cols;
-  const row = Math.floor(index / sheet.cols);
-  const x = sheet.cols === 1 ? 0 : (col / (sheet.cols - 1)) * 100;
-  const y = sheet.rows === 1 ? 0 : (row / (sheet.rows - 1)) * 100;
-
-  return `<span class="hero-icon-sprite" style="background-image:url('assets/icons/${hero.role}.png');background-size:${sheet.cols * 100}% ${sheet.rows * 100}%;background-position:${x.toFixed(4)}% ${y.toFixed(4)}%"></span>`;
+  return `<img class="hero-icon-img" src="assets/icons/${hero.id}.svg" alt="" loading="eager" decoding="async">`;
 }
 
 const ROLE_LABELS = { all: '全ロール', tank: 'タンク', damage: 'ダメージ', support: 'サポート' };
