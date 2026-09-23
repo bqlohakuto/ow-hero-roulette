@@ -1,0 +1,232 @@
+.talk-coach {
+  margin: 0 0 18px;
+  padding: 16px;
+  border: 1px solid rgba(232,241,255,.2);
+  background:
+    linear-gradient(135deg, rgba(9,16,29,.92), rgba(23,35,58,.9));
+  box-shadow: 0 18px 38px rgba(0,0,0,.2);
+  position: relative;
+  overflow: hidden;
+}
+
+.talk-coach::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 3px;
+  background: #7f8da4;
+}
+
+.talk-coach[data-state="talking"]::before { background: var(--support); }
+.talk-coach[data-state="monitoring"]::before { background: var(--orange); }
+.talk-coach[data-state="paused"]::before { background: #8190a7; }
+.talk-coach[data-state="error"]::before { background: var(--ban); }
+
+.talk-coach__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 20px;
+  margin-bottom: 14px;
+}
+
+.talk-coach__eyebrow {
+  margin: 0 0 4px;
+  color: #8f9db2;
+  font-size: 8px;
+  font-weight: 1000;
+  letter-spacing: .2em;
+}
+
+.talk-coach h2 {
+  margin: 0;
+  font-size: clamp(22px, 2.3vw, 34px);
+  line-height: 1;
+  font-style: italic;
+  letter-spacing: -.04em;
+}
+
+.talk-coach__description {
+  margin: 7px 0 0;
+  color: #8290a5;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: .05em;
+}
+
+.talk-coach__master {
+  min-width: 126px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+  padding: 8px 10px;
+  border: 1px solid rgba(255,255,255,.14);
+  background: rgba(4,9,17,.34);
+  font-size: 10px;
+  letter-spacing: .12em;
+}
+
+.talk-coach__state-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #647087;
+  box-shadow: 0 0 0 3px rgba(100,112,135,.12);
+}
+
+.talk-coach[data-state="talking"] .talk-coach__state-dot {
+  background: var(--support);
+  box-shadow: 0 0 0 3px rgba(102,199,162,.12), 0 0 12px rgba(102,199,162,.55);
+}
+
+.talk-coach[data-state="monitoring"] .talk-coach__state-dot {
+  background: var(--orange);
+  box-shadow: 0 0 0 3px rgba(248,155,50,.12), 0 0 12px rgba(248,155,50,.45);
+}
+
+.talk-coach[data-state="error"] .talk-coach__state-dot {
+  background: var(--ban);
+}
+
+.talk-coach__grid {
+  display: grid;
+  grid-template-columns: 1.3fr 1fr .72fr;
+  gap: 8px;
+}
+
+.talk-coach__status-card {
+  min-width: 0;
+  min-height: 92px;
+  padding: 11px 12px;
+  border: 1px solid rgba(255,255,255,.1);
+  background: rgba(4,9,17,.38);
+}
+
+.talk-coach__label {
+  display: block;
+  margin-bottom: 8px;
+  color: #718099;
+  font-size: 7px;
+  font-weight: 1000;
+  letter-spacing: .18em;
+}
+
+.talk-coach__status-card > strong {
+  display: block;
+  font-size: 16px;
+  line-height: 1.1;
+}
+
+.talk-coach__timer-card > strong {
+  font-size: 27px;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: .05em;
+}
+
+.talk-coach__status-card small {
+  display: block;
+  margin-top: 7px;
+  color: #74839a;
+  font-size: 7px;
+  letter-spacing: .06em;
+}
+
+.talk-coach__meter {
+  height: 4px;
+  margin-top: 10px;
+  overflow: hidden;
+  background: rgba(255,255,255,.08);
+}
+
+.talk-coach__meter span {
+  display: block;
+  width: 0;
+  height: 100%;
+  background: var(--support);
+  transition: width .08s linear;
+}
+
+.talk-coach__mini-btn {
+  margin-top: 8px;
+  border: 0;
+  padding: 0;
+  background: transparent;
+  color: #8f9db2;
+  cursor: pointer;
+  font-size: 8px;
+  font-weight: 900;
+  letter-spacing: .08em;
+}
+
+.talk-coach__mini-btn:hover { color: white; }
+
+.talk-coach__message {
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  margin-top: 9px;
+  padding: 10px 12px;
+  border-left: 2px solid #69778d;
+  background: rgba(5,10,19,.56);
+  color: #c1cada;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: .03em;
+}
+
+.talk-coach__message[data-level="success"] { border-left-color: var(--support); color: #b9ead7; }
+.talk-coach__message[data-level="warning"] { border-left-color: var(--orange); color: #ffd19b; }
+.talk-coach__message[data-level="danger"] { border-left-color: var(--ban); color: #ffabb8; }
+
+.talk-coach__actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.talk-coach__button {
+  min-width: 122px;
+  height: 34px;
+  border: 1px solid rgba(255,255,255,.19);
+  background: rgba(255,255,255,.04);
+  color: #cad3e1;
+  cursor: pointer;
+  font-size: 9px;
+  font-weight: 1000;
+  letter-spacing: .08em;
+}
+
+.talk-coach__button--primary {
+  border-color: rgba(248,155,50,.64);
+  background: rgba(248,155,50,.16);
+  color: #ffd09a;
+}
+
+.talk-coach__button:disabled {
+  opacity: .42;
+  cursor: not-allowed;
+}
+
+.talk-coach__note {
+  margin: 9px 0 0;
+  color: #66758b;
+  font-size: 7px;
+  line-height: 1.5;
+  letter-spacing: .03em;
+}
+
+@media (max-width: 760px) {
+  .talk-coach__header { align-items: stretch; flex-direction: column; gap: 10px; }
+  .talk-coach__master { justify-content: flex-start; }
+  .talk-coach__grid { grid-template-columns: 1fr 1fr; }
+  .talk-coach__status-card:last-child { grid-column: 1 / -1; min-height: 68px; }
+}
+
+@media (max-width: 440px) {
+  .talk-coach { padding: 12px; }
+  .talk-coach__grid { grid-template-columns: 1fr; }
+  .talk-coach__status-card:last-child { grid-column: auto; }
+  .talk-coach__actions { flex-direction: column; }
+  .talk-coach__button { width: 100%; }
+}
