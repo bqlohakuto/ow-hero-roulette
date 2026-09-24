@@ -105,6 +105,22 @@
 
   let els;
 
+  function publishBridge(statusOverride) {
+    if (!window.TalkCoachBridge) return;
+    window.TalkCoachBridge.publish({
+      status: statusOverride || els?.state?.textContent || 'OFF',
+      warningCount: coach.warningCount,
+      speaking: coach.speaking,
+      paused: coach.paused
+    });
+  }
+
+  function emitWarning(level) {
+    window.dispatchEvent(new CustomEvent('talkcoach:warning', {
+      detail: { level, warningCount: coach.warningCount }
+    }));
+  }
+
   function setMessage(text, level) {
     if (!els) return;
     els.message.textContent = text;
@@ -114,6 +130,7 @@
   function setState(label, mode) {
     els.state.textContent = label;
     els.panel.dataset.state = mode;
+    publishBridge(label);
   }
 
   function setVoiceState(label) {
@@ -166,17 +183,21 @@
 
     if (index === 0) {
       setMessage('発話が15秒間検出されていません。配信中の発話を継続してください。', 'warning');
+      emitWarning(15);
       return;
     }
 
     if (index === 1) {
       setMessage('無言状態が継続しています。現在の状況や思考内容を音声で説明してください。', 'warning');
+      emitWarning(30);
       return;
     }
 
     coach.warningCount += 1;
     els.warnings.textContent = String(coach.warningCount);
     setMessage('発話不足を検出しました。警告回数を1加算します。', 'danger');
+    publishBridge();
+    emitWarning(60);
   }
 
   function tick() {
@@ -345,6 +366,7 @@
     coach.warningCount = 0;
     els.warnings.textContent = '0';
     setMessage('警告回数をリセットしました。', 'info');
+    publishBridge();
   }
 
   function bindEvents() {
@@ -367,6 +389,8 @@
 
     bindEvents();
     coach.timerId = window.setInterval(tick, 200);
+    publishBridge('OFF');
+    window.dispatchEvent(new CustomEvent('talkcoach:ready'));
   }
 
   init();
