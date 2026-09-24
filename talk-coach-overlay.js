@@ -4,12 +4,18 @@
   const root = document.querySelector('#overlay');
   const count = document.querySelector('#warningCount');
   const status = document.querySelector('#coachStatus');
+  const squatCompleted = document.querySelector('#squatCompleted');
+  const squatTarget = document.querySelector('#squatTarget');
+  const squatRemaining = document.querySelector('#squatRemaining');
   const bridge = window.TalkCoachBridge;
 
   function render(data = {}) {
     count.textContent = String(data.warningCount ?? 0);
     status.textContent = data.status || 'OFF';
     root.dataset.status = data.status || 'OFF';
+    squatCompleted.textContent = String(data.penaltyCompleted ?? 0);
+    squatTarget.textContent = String(data.penaltyTarget ?? 0);
+    squatRemaining.textContent = String(data.penaltyRemaining ?? 0);
   }
 
   render(bridge?.read?.() || {});
