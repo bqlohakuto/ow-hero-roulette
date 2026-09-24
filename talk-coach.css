@@ -544,3 +544,102 @@
   .talk-coach__penalty-grid { grid-template-columns: 1fr 1fr; }
   .talk-coach__penalty-grid > div:first-child { grid-column: 1 / -1; }
 }
+
+
+/* Talk Coach recovery */
+.talk-coach[data-state="recovery"]::before {
+  background: #ffc15e;
+}
+
+.talk-coach[data-state="recovery"] .talk-coach__state-dot {
+  background: #ffc15e;
+  box-shadow: 0 0 0 3px rgba(255,193,94,.12), 0 0 12px rgba(255,193,94,.42);
+}
+
+.talk-coach__recovery {
+  margin-top: 9px;
+  padding: 11px 12px;
+  border: 1px solid rgba(255,193,94,.28);
+  background: rgba(255,193,94,.055);
+}
+
+.talk-coach__recovery[hidden] {
+  display: none;
+}
+
+.talk-coach__recovery-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.talk-coach__recovery-head strong {
+  display: block;
+  margin-top: 2px;
+  color: #ffe0aa;
+  font-size: 14px;
+}
+
+.talk-coach__recovery-head > span {
+  color: #d6a75b;
+  font-size: 8px;
+  font-weight: 900;
+  letter-spacing: .08em;
+}
+
+.talk-coach__recovery-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-top: 9px;
+}
+
+.talk-coach__recovery-grid > div {
+  padding: 8px 9px;
+  border: 1px solid rgba(255,255,255,.08);
+  background: rgba(0,0,0,.13);
+}
+
+.talk-coach__recovery-grid span {
+  display: block;
+  color: #8491a4;
+  font-size: 7px;
+  font-weight: 900;
+  letter-spacing: .08em;
+}
+
+.talk-coach__recovery-grid strong {
+  display: block;
+  margin-top: 4px;
+  color: #f5f7fb;
+  font-size: 14px;
+  font-variant-numeric: tabular-nums;
+}
+
+.talk-coach__recovery-grid strong b {
+  font: inherit;
+}
+
+.talk-coach__recovery-bar {
+  height: 5px;
+  margin-top: 8px;
+  overflow: hidden;
+  background: rgba(255,255,255,.07);
+}
+
+.talk-coach__recovery-bar span {
+  display: block;
+  width: 0;
+  height: 100%;
+  background: #ffc15e;
+  transition: width .12s linear;
+}
+
+.talk-coach__recovery > small {
+  display: block;
+  margin-top: 7px;
+  color: #7f8da4;
+  font-size: 7px;
+  line-height: 1.5;
+}
