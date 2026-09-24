@@ -58,3 +58,29 @@ body {
 .overlay[data-status="TALKING"] { border-left-color: #66c7a2; }
 .overlay[data-status="PAUSED"],
 .overlay[data-status="OFF"] { opacity: .72; }
+.overlay__penalty {
+  margin-top: 7px;
+  padding-top: 7px;
+  border-top: 1px solid rgba(255,255,255,.12);
+}
+.overlay__penalty > span {
+  display: block;
+  color: #9aa9bf;
+  font-size: 8px;
+  font-weight: 900;
+  letter-spacing: .14em;
+}
+.overlay__penalty > strong {
+  display: block;
+  margin-top: 2px;
+  font-size: 18px;
+  font-variant-numeric: tabular-nums;
+}
+.overlay__penalty > strong b { font: inherit; }
+.overlay__penalty small {
+  display: block;
+  margin-top: 2px;
+  color: #7f8da4;
+  font-size: 8px;
+}
+.overlay__penalty small b { color: #f7faff; }
