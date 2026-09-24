@@ -20,6 +20,11 @@
         '<span class="talk-coach__label">TOPIC CARD</span>',
         '<span id="talkCoachTopicCategory">READY</span>',
       '</div>',
+      '<div class="talk-coach__pool-row">',
+        '<label for="talkCoachTopicPool">話題プール</label>',
+        '<select id="talkCoachTopicPool" aria-label="話題プール"></select>',
+        '<small id="talkCoachPoolCount"></small>',
+      '</div>',
       '<strong id="talkCoachTopicText">30秒無言で話題を提示します。</strong>',
       '<div class="talk-coach__topic-actions">',
         '<button id="talkCoachNextTopic" class="talk-coach__button" type="button">次の話題</button>',
@@ -34,9 +39,33 @@
       box,
       category: box.querySelector('#talkCoachTopicCategory'),
       text: box.querySelector('#talkCoachTopicText'),
+      pool: box.querySelector('#talkCoachTopicPool'),
+      poolCount: box.querySelector('#talkCoachPoolCount'),
       next: box.querySelector('#talkCoachNextTopic'),
       autoPost: box.querySelector('#talkCoachAutoPost')
     };
+
+    const topicApi = window.TalkCoachTopics;
+    if (topicApi?.pools) {
+      Object.entries(topicApi.pools).forEach(([id, pool]) => {
+        const option = document.createElement('option');
+        option.value = id;
+        option.textContent = pool.label;
+        els.pool.append(option);
+      });
+
+      const currentPool = topicApi.getPool();
+      els.pool.value = currentPool.id;
+      els.poolCount.textContent = currentPool.size + '枚';
+
+      els.pool.addEventListener('change', () => {
+        if (!topicApi.setPool(els.pool.value)) return;
+        const selected = topicApi.getPool();
+        els.poolCount.textContent = selected.size + '枚';
+        els.category.textContent = selected.label;
+        els.text.textContent = '話題プールを「' + selected.label + '」に切り替えました。';
+      });
+    }
 
     els.autoPost.checked = autoPostEnabled();
     els.autoPost.addEventListener('change', () => {
@@ -84,5 +113,10 @@
 
   window.addEventListener('talkcoach:ready', createUi);
   window.addEventListener('talkcoach:topic', event => renderTopic(event.detail));
+  window.addEventListener('talkcoach:poolchange', event => {
+    if (!els) return;
+    els.pool.value = event.detail.id;
+    els.poolCount.textContent = event.detail.size + '枚';
+  });
   window.addEventListener('talkcoach:warning', handleWarning);
 })();
