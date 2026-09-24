@@ -56,6 +56,18 @@
     items.map((text, index) => ({ id: category + '-' + (index + 1), category, text }))
   );
 
+  const POOLS = {
+    overwatch: { label: 'Overwatch 2', categories: ['OW'] },
+    game: { label: 'ゲーム全般', categories: ['GAME'] },
+    stream: { label: '配信', categories: ['STREAM'] },
+    chat: { label: '雑談', categories: ['CHAT'] },
+    mix: { label: 'ミックス', categories: ['OW', 'GAME', 'STREAM', 'CHAT'] }
+  };
+
+  const POOL_KEY = 'talkCoachTopicPool';
+  let activePool = localStorage.getItem(POOL_KEY);
+  if (!POOLS[activePool]) activePool = 'overwatch';
+
   let bag = [];
   let current = null;
 
@@ -68,11 +80,32 @@
     return copy;
   }
 
+  function poolTopics(poolId = activePool) {
+    const pool = POOLS[poolId] || POOLS.overwatch;
+    return ALL.filter(topic => pool.categories.includes(topic.category));
+  }
+
   function refill() {
-    bag = shuffle(ALL);
+    bag = shuffle(poolTopics());
     if (current && bag.length > 1 && bag[0].id === current.id) {
       [bag[0], bag[1]] = [bag[1], bag[0]];
     }
+  }
+
+  function setPool(poolId) {
+    if (!POOLS[poolId]) return false;
+    activePool = poolId;
+    localStorage.setItem(POOL_KEY, poolId);
+    bag = [];
+    current = null;
+    window.dispatchEvent(new CustomEvent('talkcoach:poolchange', {
+      detail: { id: activePool, ...POOLS[activePool], size: poolTopics().length }
+    }));
+    return true;
+  }
+
+  function getPool() {
+    return { id: activePool, ...POOLS[activePool], size: poolTopics().length };
   }
 
   function next() {
@@ -89,8 +122,12 @@
   window.TalkCoachTopics = {
     all: ALL,
     categories: TOPICS,
+    pools: POOLS,
     next,
     getCurrent,
+    getPool,
+    setPool,
+    getPoolTopics: () => poolTopics(),
     reset: refill
   };
 })();
