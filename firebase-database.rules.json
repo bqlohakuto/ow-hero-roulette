@@ -1,0 +1,27 @@
+{
+  "rules": {
+    ".read": false,
+    ".write": false,
+    "penaltySessions": {
+      "$room": {
+        ".read": "auth != null && $room.matches(/^[a-z0-9-]{12,40}$/)",
+        ".write": "auth != null && $room.matches(/^[a-z0-9-]{12,40}$/)",
+        "target": {
+          ".validate": "newData.isNumber() && newData.val() >= 0 && newData.val() <= 2000"
+        },
+        "completed": {
+          ".validate": "newData.isNumber() && newData.val() >= 0 && newData.val() <= 2000 && newData.val() <= newData.parent().child('target').val()"
+        },
+        "status": {
+          ".validate": "newData.isString() && (newData.val() == 'idle' || newData.val() == 'active' || newData.val() == 'complete')"
+        },
+        "updatedAt": {
+          ".validate": "newData.isNumber()"
+        },
+        "$other": {
+          ".validate": false
+        }
+      }
+    }
+  }
+}
