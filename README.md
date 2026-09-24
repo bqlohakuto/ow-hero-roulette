@@ -76,3 +76,21 @@ Quick DeckをOBSのCustom Browser Dockとして開く構成を想定していま
 - `talk-coach-overlay.html` OBS Browser Source
 - `talk-coach-overlay.css` OBS表示デザイン
 - `talk-coach-overlay.js` OBS状態反映
+
+
+## Squat Penalty
+
+Talk Coachの60秒警告1回につき、SQUAT BARへスクワット10回のペナルティを追加します。
+未消化分は加算され、SQUAT BARの太もも自動計測で1回ずつ消化するとQuick DeckとOBSへリアルタイム反映されます。
+
+### Firebase初期設定
+
+1. Firebaseプロジェクトを作成
+2. Realtime Databaseを作成
+3. Firebase Authenticationで匿名認証（Anonymous）を有効化
+4. Realtime DatabaseのRulesへ `firebase-database.rules.json` の内容を設定
+5. Firebase Web Appを登録し、表示されたFirebase configをQuick Deckの「Firebase連携設定」へ貼り付け
+6. 設定保存後、「スマホ用設定をコピー」で連携設定をコピー
+7. iPhoneのSQUAT BAR → 設定 → Talk Coach連携へ貼り付けて保存
+
+Firebase configには `databaseURL` が必要です。
