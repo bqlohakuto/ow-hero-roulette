@@ -4,6 +4,8 @@
   const CONFIG = {
     warningMs: [15000, 30000, 60000],
     minSpeechMs: 400,
+    recoverySpeechMs: 8000,
+    recoveryUtterances: 2,
     positiveSpeechThreshold: 0.5,
     negativeSpeechThreshold: 0.35,
     redemptionMs: 700,
@@ -23,7 +25,11 @@
     warningFlags: [false, false, false],
     warningCount: 0,
     timerId: null,
-    probability: 0
+    probability: 0,
+    recoveryActive: false,
+    recoverySpeechMs: 0,
+    recoveryUtterances: 0,
+    recoverySpeechStartedAt: null
   };
 
   function createPanel() {
@@ -71,6 +77,22 @@
         '</div>',
       '</div>',
 
+      '<section id="talkCoachRecovery" class="talk-coach__recovery" hidden>',
+        '<div class="talk-coach__recovery-head">',
+          '<div>',
+            '<span class="talk-coach__label">RECOVERY MODE</span>',
+            '<strong>会話復帰判定</strong>',
+          '</div>',
+          '<span>30秒以降</span>',
+        '</div>',
+        '<div class="talk-coach__recovery-grid">',
+          '<div><span>発話時間</span><strong><b id="talkCoachRecoverySpeech">0.0</b> / 8.0秒</strong></div>',
+          '<div><span>発話回数</span><strong><b id="talkCoachRecoveryUtterances">0</b> / 2回</strong></div>',
+        '</div>',
+        '<div class="talk-coach__recovery-bar"><span id="talkCoachRecoveryBar"></span></div>',
+        '<small>両方の条件を満たすまで無言タイマーはリセットされません。</small>',
+      '</section>',
+
       '<div id="talkCoachMessage" class="talk-coach__message" aria-live="polite">',
         'Talk Coachは停止しています。',
       '</div>',
@@ -96,6 +118,10 @@
       probability: document.querySelector('#talkCoachProbability'),
       silence: document.querySelector('#talkCoachSilence'),
       warnings: document.querySelector('#talkCoachWarnings'),
+      recovery: document.querySelector('#talkCoachRecovery'),
+      recoverySpeech: document.querySelector('#talkCoachRecoverySpeech'),
+      recoveryUtterances: document.querySelector('#talkCoachRecoveryUtterances'),
+      recoveryBar: document.querySelector('#talkCoachRecoveryBar'),
       message: document.querySelector('#talkCoachMessage'),
       toggle: document.querySelector('#talkCoachToggle'),
       pause: document.querySelector('#talkCoachPause'),
@@ -111,7 +137,10 @@
       status: statusOverride || els?.state?.textContent || 'OFF',
       warningCount: coach.warningCount,
       speaking: coach.speaking,
-      paused: coach.paused
+      paused: coach.paused,
+      recoveryActive: coach.recoveryActive,
+      recoverySpeechMs: Math.round(coach.recoverySpeechMs),
+      recoveryUtterances: coach.recoveryUtterances
     });
   }
 
@@ -151,10 +180,72 @@
     return String(minutes).padStart(2, '0') + ':' + String(seconds).padStart(2, '0');
   }
 
+  function currentRecoverySpeechMs() {
+    const live = coach.recoveryActive && coach.speaking && coach.recoverySpeechStartedAt !== null
+      ? performance.now() - coach.recoverySpeechStartedAt
+      : 0;
+    return coach.recoverySpeechMs + live;
+  }
+
+  function renderRecovery() {
+    if (!els?.recovery) return;
+    els.recovery.hidden = !coach.recoveryActive;
+    if (!coach.recoveryActive) return;
+
+    const speechMs = currentRecoverySpeechMs();
+    const speechSeconds = speechMs / 1000;
+    const percent = Math.min(100, Math.min(
+      speechMs / CONFIG.recoverySpeechMs,
+      coach.recoveryUtterances / CONFIG.recoveryUtterances
+    ) * 100);
+
+    els.recoverySpeech.textContent = speechSeconds.toFixed(1);
+    els.recoveryUtterances.textContent = String(coach.recoveryUtterances);
+    els.recoveryBar.style.width = percent + '%';
+  }
+
+  function resetRecovery() {
+    coach.recoveryActive = false;
+    coach.recoverySpeechMs = 0;
+    coach.recoveryUtterances = 0;
+    coach.recoverySpeechStartedAt = null;
+    if (els?.recovery) {
+      els.recovery.hidden = true;
+      els.recoverySpeech.textContent = '0.0';
+      els.recoveryUtterances.textContent = '0';
+      els.recoveryBar.style.width = '0%';
+    }
+  }
+
+  function enterRecovery() {
+    if (coach.recoveryActive) return;
+    coach.recoveryActive = true;
+    coach.recoverySpeechMs = 0;
+    coach.recoveryUtterances = 0;
+    coach.recoverySpeechStartedAt = null;
+    setState('RECOVERY', 'recovery');
+    setVoiceState('復帰発話を監視中');
+    renderRecovery();
+  }
+
   function resetSilenceCycle(startNow) {
     coach.warningFlags = [false, false, false];
     coach.silenceStartedAt = startNow ? performance.now() : null;
+    resetRecovery();
     els.silence.textContent = '00:00';
+  }
+
+  function markRecoverySpeechStart() {
+    coach.speaking = true;
+    coach.recoverySpeechStartedAt = performance.now();
+    setState('RECOVERY', 'recovery');
+    setVoiceState('復帰発話を検出');
+    renderRecovery();
+  }
+
+  function recoveryComplete() {
+    return coach.recoverySpeechMs >= CONFIG.recoverySpeechMs
+      && coach.recoveryUtterances >= CONFIG.recoveryUtterances;
   }
 
   function markValidSpeech() {
@@ -169,8 +260,42 @@
 
   function markSpeechEnd() {
     if (!coach.enabled || coach.paused) return;
+
+    const now = performance.now();
+
+    if (coach.recoveryActive) {
+      coach.speaking = false;
+      if (coach.recoverySpeechStartedAt !== null) {
+        coach.recoverySpeechMs += Math.max(0, now - coach.recoverySpeechStartedAt);
+        coach.recoveryUtterances += 1;
+      }
+      coach.recoverySpeechStartedAt = null;
+      coach.lastSpeechEndAt = now;
+      renderRecovery();
+
+      if (recoveryComplete()) {
+        resetSilenceCycle(true);
+        setState('MONITORING', 'monitoring');
+        setVoiceState('会話復帰を確認');
+        setMessage('会話復帰を確認しました。無言タイマーをリセットします。', 'success');
+        publishBridge();
+        return;
+      }
+
+      const seconds = (coach.recoverySpeechMs / 1000).toFixed(1);
+      setState('RECOVERY', 'recovery');
+      setVoiceState('復帰条件を監視中');
+      setMessage(
+        '復帰判定中。発話 ' + seconds + ' / 8.0秒、発話回数 '
+          + coach.recoveryUtterances + ' / 2回。',
+        'warning'
+      );
+      publishBridge();
+      return;
+    }
+
     coach.speaking = false;
-    coach.lastSpeechEndAt = performance.now();
+    coach.lastSpeechEndAt = now;
     coach.silenceStartedAt = coach.lastSpeechEndAt;
     coach.warningFlags = [false, false, false];
     setState('MONITORING', 'monitoring');
@@ -188,7 +313,8 @@
     }
 
     if (index === 1) {
-      setMessage('無言状態が継続しています。現在の状況や思考内容を音声で説明してください。', 'warning');
+      enterRecovery();
+      setMessage('無言状態が継続しています。会話復帰には累計8秒以上、2回以上の発話が必要です。', 'warning');
       emitWarning(30);
       return;
     }
@@ -201,12 +327,17 @@
   }
 
   function tick() {
-    if (!coach.enabled || coach.paused || coach.speaking || coach.silenceStartedAt === null) {
+    if (!coach.enabled || coach.paused || coach.silenceStartedAt === null) {
+      return;
+    }
+
+    if (coach.speaking && !coach.recoveryActive) {
       return;
     }
 
     const elapsed = performance.now() - coach.silenceStartedAt;
     els.silence.textContent = formatSilence(elapsed);
+    if (coach.recoveryActive) renderRecovery();
 
     CONFIG.warningMs.forEach((threshold, index) => {
       if (elapsed >= threshold) fireWarning(index);
@@ -246,7 +377,11 @@
       },
       onSpeechRealStart: () => {
         if (!coach.enabled || coach.paused) return;
-        markValidSpeech();
+        if (coach.recoveryActive) {
+          markRecoverySpeechStart();
+        } else {
+          markValidSpeech();
+        }
       },
       onSpeechEnd: () => {
         if (!coach.enabled || coach.paused) return;
@@ -338,6 +473,7 @@
         coach.paused = true;
         coach.speaking = false;
         coach.silenceStartedAt = null;
+        resetRecovery();
         setProbability(0);
         setState('PAUSED', 'paused');
         setVoiceState('一時停止中');
