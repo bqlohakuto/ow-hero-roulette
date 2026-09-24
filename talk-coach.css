@@ -360,3 +360,59 @@
   .talk-coach__phase2-actions .talk-coach__button { width: auto; flex: 1; }
   .talk-coach__topic-actions { align-items: flex-start; flex-direction: column; }
 }
+
+
+.talk-coach__pool-row {
+  display: grid;
+  grid-template-columns: auto minmax(150px, 240px) auto;
+  align-items: center;
+  gap: 8px;
+  margin-top: 8px;
+  padding: 8px 9px;
+  border: 1px solid rgba(255,255,255,.08);
+  background: rgba(0,0,0,.12);
+}
+
+.talk-coach__pool-row label {
+  color: #8391a7;
+  font-size: 8px;
+  font-weight: 900;
+  letter-spacing: .08em;
+}
+
+.talk-coach__pool-row select {
+  min-width: 0;
+  height: 30px;
+  border: 1px solid rgba(255,255,255,.14);
+  outline: 0;
+  padding: 0 8px;
+  background: rgba(5,10,19,.7);
+  color: #edf4ff;
+  font-size: 9px;
+  font-weight: 800;
+}
+
+.talk-coach__pool-row select:focus {
+  border-color: rgba(248,155,50,.65);
+}
+
+.talk-coach__pool-row small {
+  color: #718099;
+  font-size: 8px;
+  font-weight: 900;
+  white-space: nowrap;
+}
+
+@media (max-width: 440px) {
+  .talk-coach__pool-row {
+    grid-template-columns: 1fr auto;
+  }
+
+  .talk-coach__pool-row label {
+    grid-column: 1 / -1;
+  }
+
+  .talk-coach__pool-row select {
+    width: 100%;
+  }
+}
