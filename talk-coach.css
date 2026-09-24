@@ -416,3 +416,131 @@
     width: 100%;
   }
 }
+
+
+/* Talk Coach penalty */
+.talk-coach__penalty {
+  margin-top: 10px;
+  padding: 12px;
+  border: 1px solid rgba(255,255,255,.11);
+  background: rgba(4,9,17,.34);
+}
+
+.talk-coach__penalty-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.talk-coach__penalty-head strong {
+  display: block;
+  margin-top: 2px;
+  font-size: 15px;
+}
+
+.talk-coach__penalty-grid {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1fr;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.talk-coach__penalty-grid > div {
+  padding: 9px 10px;
+  border: 1px solid rgba(255,255,255,.08);
+  background: rgba(0,0,0,.14);
+}
+
+.talk-coach__penalty-grid span {
+  display: block;
+  color: #718099;
+  font-size: 7px;
+  font-weight: 900;
+  letter-spacing: .1em;
+}
+
+.talk-coach__penalty-grid strong {
+  display: block;
+  margin-top: 4px;
+  color: #f2f6ff;
+  font-size: 20px;
+  font-variant-numeric: tabular-nums;
+}
+
+.talk-coach__penalty-grid strong b { font: inherit; }
+
+.talk-coach__penalty-bar {
+  height: 5px;
+  margin-top: 8px;
+  overflow: hidden;
+  background: rgba(255,255,255,.07);
+}
+
+.talk-coach__penalty-bar span {
+  display: block;
+  width: 0;
+  height: 100%;
+  background: var(--support);
+  transition: width .2s ease;
+}
+
+.talk-coach__penalty-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 9px;
+}
+
+.talk-coach__penalty-settings {
+  margin-top: 9px;
+  border-top: 1px solid rgba(255,255,255,.08);
+  padding-top: 9px;
+}
+
+.talk-coach__penalty-settings summary {
+  color: #8998ad;
+  cursor: pointer;
+  font-size: 8px;
+  font-weight: 900;
+  letter-spacing: .08em;
+}
+
+.talk-coach__penalty-settings label {
+  display: block;
+  margin-top: 9px;
+}
+
+.talk-coach__penalty-settings label > span {
+  display: block;
+  margin-bottom: 5px;
+  color: #728198;
+  font-size: 7px;
+  font-weight: 900;
+  letter-spacing: .1em;
+}
+
+.talk-coach__penalty-settings textarea,
+.talk-coach__penalty-settings input {
+  width: 100%;
+  border: 1px solid rgba(255,255,255,.14);
+  outline: 0;
+  padding: 8px 9px;
+  background: rgba(5,10,19,.7);
+  color: #edf4ff;
+  font: 9px/1.45 ui-monospace, SFMono-Regular, Consolas, monospace;
+}
+
+.talk-coach__penalty-settings input { height: 34px; }
+
+.talk-coach__penalty-help {
+  display: block;
+  margin-top: 8px;
+  color: #718099;
+  font-size: 8px;
+  line-height: 1.5;
+}
+
+@media (max-width: 520px) {
+  .talk-coach__penalty-grid { grid-template-columns: 1fr 1fr; }
+  .talk-coach__penalty-grid > div:first-child { grid-column: 1 / -1; }
+}
