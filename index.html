@@ -7,6 +7,7 @@
   <title>OW ヒーロールーレット</title>
   <link rel="stylesheet" href="styles.css" />
   <link rel="stylesheet" href="talk-coach.css" />
+  <link rel="stylesheet" href="tarot.css" />
 </head>
 <body>
   <div class="screen-bg" aria-hidden="true"></div>
@@ -64,6 +65,32 @@
       <div class="player-scroll">
         <section id="playerGrid" class="player-grid" aria-live="polite"></section>
       </div>
+    </section>
+
+    <section id="tarotPanel" class="tarot-panel" aria-label="白兎タロット">
+      <header class="tarot-panel__header">
+        <div><p class="tarot-kicker">QUICK DECK / PHASE 1</p><h2>TAROT <span>白兎タロット</span></h2><p>大アルカナを追加できるカードデータで管理します。</p></div>
+        <div class="tarot-controls"><button id="tarotDraw" type="button" class="tarot-primary">テスト抽選</button><label class="tarot-switch"><input id="tarotObsEnabled" type="checkbox" checked> OBS演出</label><label class="tarot-switch"><input id="tarotTwitchEnabled" type="checkbox" checked> Twitch投稿</label></div>
+      </header>
+      <div class="tarot-layout">
+        <section class="tarot-result" aria-live="polite">
+          <div class="tarot-result__top"><span id="tarotStatus">待機中</span><span id="tarotQueueCount">待機 0</span></div>
+          <div class="tarot-card" id="tarotPreviewCard"><img id="tarotPreviewImage" alt="選択中のタロットカード"><div id="tarotCardFallback" class="tarot-card__fallback"><span id="tarotCardRoman">XVII</span><strong id="tarotCardTitle">THE STAR</strong><b id="tarotCardJapanese">星</b></div></div>
+          <h3 id="tarotResultTitle">カードを選んでプレビュー</h3><p id="tarotResultComment">抽選すると正位置または逆位置のコメントを表示します。</p>
+        </section>
+        <div class="tarot-settings">
+          <div class="tarot-form-grid">
+            <label>カード指定プレビュー<select id="tarotPreviewSelect"></select></label>
+            <label>ユーザーCD（秒）<input id="tarotCooldown" type="number" min="0" max="86400" step="1"></label>
+            <label class="tarot-check"><input id="tarotReversalEnabled" type="checkbox"> 逆位置を有効にする</label>
+            <label>逆位置確率 <span><input id="tarotReversalProbability" type="number" min="0" max="100" step="1">%</span></label>
+          </div>
+          <div class="tarot-card-list" id="tarotCardList"></div>
+          <details class="tarot-comments" open><summary>選択カードのコメント編集</summary><label>正位置<textarea id="tarotUprightComment" rows="3"></textarea></label><label>逆位置<textarea id="tarotReversedComment" rows="3"></textarea></label><button id="tarotRestoreComments" type="button" class="tarot-secondary">デフォルト文に戻す</button></details>
+          <section class="tarot-history"><div><strong>抽選履歴</strong><button id="tarotClearHistory" type="button" class="tarot-secondary">履歴を消去</button></div><ol id="tarotHistory"></ol></section>
+        </div>
+      </div>
+      <p class="tarot-note">OBS Browser Sourceには <code>tarot-overlay.html</code> を指定します。裏面は共通画像1点を参照します。</p>
     </section>
 
     <section class="action-zone">
@@ -163,6 +190,7 @@
   <script src="talk-coach-phase2.js"></script>
   <script src="talk-coach-penalty.js"></script>
   <script src="talk-coach.js"></script>
+  <script src="tarot.js"></script>
   <script src="app.js"></script>
 </body>
 </html>

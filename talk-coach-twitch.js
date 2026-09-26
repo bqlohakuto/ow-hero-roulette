@@ -371,6 +371,7 @@
 
   async function handleChatMessage(event) {
     const text = event?.message?.text?.trim().toLowerCase();
+    window.dispatchEvent(new CustomEvent('twitch:chat-message', { detail: event }));
     if (text !== '!topic') return;
 
     if (event.chatter_user_id === state.sender?.id) return;
