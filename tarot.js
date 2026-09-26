@@ -53,9 +53,10 @@
     $('#tarotCardJapanese').textContent = card.ja;
     $('#tarotResultTitle').textContent = `${title(card)} ${orientation === 'reversed' ? '逆位置' : '正位置'}`;
     $('#tarotResultComment').textContent = comment(card, orientation) || '';
-    image.src = card.image; image.alt = title(card); image.hidden = true;
+    image.alt = title(card); image.hidden = false; fallback.hidden = true;
     image.onload = () => { image.hidden=false; fallback.hidden=true; };
     image.onerror = () => { image.hidden=true; fallback.hidden=false; };
+    image.src = new URL(card.image, document.baseURI).href;
   }
   function renderCardList() {
     $('#tarotCardList').innerHTML = settings.cards.map(card => `<label class="tarot-card-toggle"><input type="checkbox" data-card-enabled="${card.id}" ${card.enabled?'checked':''}><span>${esc(card.roman)} · ${esc(title(card))}</span></label>`).join('');
