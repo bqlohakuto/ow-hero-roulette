@@ -59,15 +59,6 @@ Talk CoachのTwitch Bot欄で以下を設定します。
 30秒無言で話題カードを投稿し、60秒無言で警告回数と別の話題カードを投稿します。
 視聴者が `!topic` と入力した場合も新しい話題カードを1枚投稿します（10秒クールダウン）。
 
-## 白兎タロット Phase 1
-
-- Quick DeckのTAROTパネルからテスト抽選、カードプレビュー、カードの有効/無効、正逆位置、逆位置確率、視聴者ごとのクールダウンを設定できます。
-- 正位置/逆位置コメントはブラウザーに保存され、カードごとにデフォルト文へ復元できます。
-- `!tarot` で抽選を依頼できます。演出中の依頼はキューに入り、結果公開時に現在のコメントをTwitchへ投稿します。
-- Twitch接続はTalk CoachのOAuth/EventSub接続を共有します。投稿ON/OFFとOBS演出ON/OFFは独立して設定できます。
-- OBS Browser Sourceには `tarot-overlay.html` を指定してください。同一オリジンの `BroadcastChannel` / `localStorage` で約10秒の裏面→シャッフル→中央→フリップ→結果→フェード演出を同期します。
-- 採用済み5枚のカード表画像と共通裏面は `assets/tarot/` に収録しています。カード定義は大アルカナ追加に対応する配列形式です。
-
 ### OBS表示
 
 OBS Browser Sourceに `talk-coach-overlay.html` を指定すると、Talk Coachの警告回数と状態を小さく表示できます。
