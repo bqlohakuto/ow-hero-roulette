@@ -6,9 +6,9 @@
   const CHANNEL = 'quick-deck-tarot';
   const BACK = 'assets/tarot/card-back.png';
   const DEFAULTS = [
-    { id:'fool', arcana:0, roman:'0', en:'THE FOOL', ja:'愚者', image:'assets/tarot/fool.png', upright:'新しい一歩を踏み出す好機です。好奇心を信じ、軽やかに進みましょう。', reversed:'勢いだけで進まず、足元を確かめてから一歩を選びましょう。' },
-    { id:'sun', arcana:19, roman:'XIX', en:'THE SUN', ja:'太陽', image:'assets/tarot/sun.png', upright:'明るい追い風が吹いています。喜びを分かち合い、自信を持って進みましょう。', reversed:'急ぎすぎず、休息と周囲への感謝を忘れないようにしましょう。' },
-    { id:'star', arcana:17, roman:'XVII', en:'THE STAR', ja:'星', image:'assets/tarot/star.png', upright:'希望の光が見えています。焦らず、自分らしい願いを育てていきましょう。', reversed:'先が見えにくい時も、小さな回復の兆しを大切にしましょう。' },
+    { id:'fool', arcana:0, roman:'0', en:'THE FOOL', ja:'愚者', image:'assets/tarot/the-fool.png', upright:'新しい一歩を踏み出す好機です。好奇心を信じ、軽やかに進みましょう。', reversed:'勢いだけで進まず、足元を確かめてから一歩を選びましょう。' },
+    { id:'sun', arcana:19, roman:'XIX', en:'THE SUN', ja:'太陽', image:'assets/tarot/the-sun.png', upright:'明るい追い風が吹いています。喜びを分かち合い、自信を持って進みましょう。', reversed:'急ぎすぎず、休息と周囲への感謝を忘れないようにしましょう。' },
+    { id:'star', arcana:17, roman:'XVII', en:'THE STAR', ja:'星', image:'assets/tarot/the-star.png', upright:'希望の光が見えています。焦らず、自分らしい願いを育てていきましょう。', reversed:'先が見えにくい時も、小さな回復の兆しを大切にしましょう。' },
     { id:'strength', arcana:8, roman:'VIII', en:'STRENGTH', ja:'力', image:'assets/tarot/strength.png', upright:'穏やかな粘り強さが力になります。自分を信じて一歩ずつ進みましょう。', reversed:'頑張りすぎのサインかもしれません。力を抜き、助けを受け取りましょう。' },
     { id:'tower', arcana:16, roman:'XVI', en:'THE TOWER', ja:'塔', image:'assets/tarot/tower.png', upright:'変化が流れを切り替えます。古い前提を見直し、新しい土台を整えましょう。', reversed:'小さな違和感を無視せず、落ち着いて変化に備えましょう。' }
   ];
