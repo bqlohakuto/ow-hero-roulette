@@ -61,23 +61,24 @@
               <p>PRODUCTION CHAT</p>
               <h2>制作チャット</h2>
             </div>
-            <div class="gd-legend"><span>🔒 配信除外</span><span>◆ 確定事項</span></div>
+            <div class="gd-legend"><span id="aiStatus" class="gd-ai-status">AI確認中…</span><span>🔒 配信除外</span><span>◆ 確定事項</span></div>
           </header>
           <div id="chatList" class="gd-chat-list"></div>
           <form id="chatForm" class="gd-composer">
             <div class="gd-composer-row">
-              <label class="gd-select-wrap">話者
-                <select id="chatAuthor">
-                  <option value="user">白兎</option>
-                  <option value="assistant">AI</option>
-                </select>
-              </label>
-              <label class="gd-check"><input id="chatHidden" type="checkbox" /> <span>🔒 このメッセージを配信から完全除外</span></label>
+              <div class="gd-ai-mode">
+                <strong>白兎 → AI</strong>
+                <span id="aiModelLabel">ローカルAI未接続</span>
+              </div>
+              <label class="gd-check"><input id="chatHidden" type="checkbox" /> <span>🔒 このやり取りを配信から完全除外</span></label>
             </div>
             <textarea id="chatInput" rows="4" placeholder="制作内容を入力。配信画面では本文を表示せず、伏せ字だけが動きます。"></textarea>
             <div class="gd-composer-actions">
-              <small>※ OBSには入力本文を送信しません。</small>
-              <button class="gd-button" type="submit">送信</button>
+              <small id="chatHint">※ OBSには入力本文を送信しません。</small>
+              <div class="gd-composer-buttons">
+                <button id="manualAddBtn" class="gd-button gd-button--ghost" type="submit">手動記録</button>
+                <button id="aiSendBtn" class="gd-button" type="button">AIに送信</button>
+              </div>
             </div>
           </form>
         </section>
@@ -134,6 +135,12 @@
 
       <aside class="gd-side">
         <section class="gd-side-card">
+          <p class="gd-side-kicker">AI CONNECTION</p>
+          <h3 id="aiConnectionTitle">ローカルAI</h3>
+          <div id="aiConnectionDetail" class="gd-ai-detail">接続確認中…</div>
+          <button id="aiReconnectBtn" class="gd-button gd-button--ghost gd-button--block" type="button">再接続</button>
+        </section>
+        <section class="gd-side-card">
           <p class="gd-side-kicker">STREAM SAFETY</p>
           <h3>配信出力</h3>
           <dl>
@@ -159,5 +166,6 @@
     </section>
   </main>
   <script src="game-dev.js"></script>
+  <script src="game-dev-ai.js"></script>
 </body>
 </html>
