@@ -18,12 +18,12 @@ if not exist ".env" (
   echo.
 )
 
-start "" "http://127.0.0.1:4173/game-dev.html"
-
 if exist ".env" (
-  node --env-file=.env quickdeck-server.mjs
+  start "Quick Deck GAME DEV Server" cmd /k node --env-file=.env quickdeck-server.mjs
 ) else (
-  node quickdeck-server.mjs
+  start "Quick Deck GAME DEV Server" cmd /k node quickdeck-server.mjs
 )
 
-pause
+timeout /t 2 /nobreak >nul
+start "" "http://127.0.0.1:4173/game-dev.html"
+exit /b 0
