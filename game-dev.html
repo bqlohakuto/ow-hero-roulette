@@ -61,14 +61,14 @@
               <p>PRODUCTION CHAT</p>
               <h2>制作チャット</h2>
             </div>
-            <div class="gd-legend"><span id="aiStatus" class="gd-ai-status">AI確認中…</span><span>🔒 配信除外</span><span>◆ 確定事項</span></div>
+            <div class="gd-legend"><span class="gd-local-badge">API不要</span><span>🔒 配信除外</span><span>◆ 確定事項</span></div>
           </header>
           <div id="chatList" class="gd-chat-list"></div>
           <form id="chatForm" class="gd-composer">
             <div class="gd-composer-row">
               <div class="gd-ai-mode">
-                <strong>白兎 → AI</strong>
-                <span id="aiModelLabel">ローカルAI未接続</span>
+                <strong>制作ログ</strong>
+                <span>ブラウザ保存 / OBSへは伏せ字のみ送信</span>
               </div>
               <label class="gd-check"><input id="chatHidden" type="checkbox" /> <span>🔒 このやり取りを配信から完全除外</span></label>
             </div>
@@ -76,8 +76,7 @@
             <div class="gd-composer-actions">
               <small id="chatHint">※ OBSには入力本文を送信しません。</small>
               <div class="gd-composer-buttons">
-                <button id="manualAddBtn" class="gd-button gd-button--ghost" type="submit">手動記録</button>
-                <button id="aiSendBtn" class="gd-button" type="button">AIに送信</button>
+                <button id="manualAddBtn" class="gd-button" type="submit">制作ログに記録</button>
               </div>
             </div>
           </form>
@@ -134,13 +133,29 @@
       </div>
 
       <aside class="gd-side">
-        <section class="gd-side-card">
-          <p class="gd-side-kicker">AI CONNECTION</p>
-          <h3 id="aiConnectionTitle">ローカルAI</h3>
-          <div id="aiConnectionDetail" class="gd-ai-detail">接続確認中…</div>
-          <label class="gd-check gd-auto-review"><input id="autoReviewToggle" type="checkbox" checked /> <span>確定事項を整理したら自動で配信レビュー</span></label>
-          <button id="aiReconnectBtn" class="gd-button gd-button--ghost gd-button--block" type="button">再接続</button>
+        <section class="gd-side-card gd-paste-card">
+          <p class="gd-side-kicker">CHATGPT HANDOFF</p>
+          <h3>ChatGPTから貼り付け</h3>
+          <p class="gd-side-note">このChatGPTで作った返答を貼るだけ。制作チャットに「AI」の発言として残せます。</p>
+          <textarea id="pasteFromChatGPT" rows="5" placeholder="ChatGPTの返答をここに貼り付け"></textarea>
+          <label class="gd-check"><input id="pasteHidden" type="checkbox" /> <span>🔒 配信から完全除外</span></label>
+          <button id="pasteAsAiBtn" class="gd-button gd-button--block" type="button">AI発言として追加</button>
         </section>
+
+        <details class="gd-side-card gd-api-optional">
+          <summary>
+            <span><small>OPTIONAL</small> API連携（任意）</span>
+            <b>＋</b>
+          </summary>
+          <div class="gd-api-optional__body">
+            <h3 id="aiConnectionTitle">ローカルAI</h3>
+            <div id="aiConnectionDetail" class="gd-ai-detail">未接続</div>
+            <span id="aiStatus" class="gd-ai-status">AI OFFLINE</span>
+            <span id="aiModelLabel" class="gd-api-model">任意機能</span>
+            <label class="gd-check gd-auto-review"><input id="autoReviewToggle" type="checkbox" /> <span>確定後にAIで自動レビュー</span></label>
+            <button id="aiReconnectBtn" class="gd-button gd-button--ghost gd-button--block" type="button">接続確認</button>
+          </div>
+        </details>
         <section class="gd-side-card">
           <p class="gd-side-kicker">STREAM SAFETY</p>
           <h3>配信出力</h3>
