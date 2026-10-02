@@ -39,7 +39,7 @@
   const els = {
     projectName: $('#projectName'), sectionName: $('#sectionName'), streamEnabled: $('#streamEnabled'),
     saveState: $('#saveState'), progressText: $('#progressText'), progressBar: $('#progressBar'),
-    chatList: $('#chatList'), chatForm: $('#chatForm'), chatInput: $('#chatInput'), chatAuthor: $('#chatAuthor'), chatHidden: $('#chatHidden'),
+    chatList: $('#chatList'), chatForm: $('#chatForm'), chatInput: $('#chatInput'), chatHidden: $('#chatHidden'),
     reviewList: $('#reviewList'), reviewForm: $('#reviewForm'), reviewInput: $('#reviewInput'), reviewHidden: $('#reviewHidden'), generateReviewBtn: $('#generateReviewBtn'),
     taskForm: $('#taskForm'), taskInput: $('#taskInput'), taskHidden: $('#taskHidden'), todoList: $('#todoList'), doneList: $('#doneList'), taskCountBadge: $('#taskCountBadge'),
     settingForm: $('#settingForm'), settingCategory: $('#settingCategory'), settingLabel: $('#settingLabel'), settingValue: $('#settingValue'), settingHidden: $('#settingHidden'), settingsList: $('#settingsList'),
@@ -215,6 +215,106 @@
     els.miniPreview.innerHTML = `${lines || '<small>制作チャット待機中</small>'}<p>${escapeHtml(review)}</p>`;
   }
 
+  function workspaceSnapshot() {
+    return {
+      projectName: state.projectName,
+      sectionName: state.sectionName,
+      messages: state.messages.map(m => ({ ...m })),
+      reviews: state.reviews.map(r => ({ ...r })),
+      tasks: state.tasks.map(t => ({ ...t })),
+      settings: state.settings.map(s => ({ ...s })),
+      scenarios: state.scenarios.map(s => ({ ...s }))
+    };
+  }
+
+  function normalizeText(value) {
+    return String(value || '').trim().replace(/\s+/g, ' ').toLowerCase();
+  }
+
+  function addWorkspaceMessage(author, text, streamHidden = false) {
+    const item = { id: uid(), author: author === 'assistant' ? 'assistant' : 'user', text: String(text || '').trim(), streamHidden: !!streamHidden, confirmed: false, organized: false, createdAt: nowIso() };
+    if (!item.text) return null;
+    state.messages.push(item);
+    save(); renderChat(); renderStats();
+    return item;
+  }
+
+  function addWorkspaceReview(text, streamHidden = false, auto = true) {
+    const item = { id: uid(), text: String(text || '').trim(), streamHidden: !!streamHidden, createdAt: nowIso(), auto: !!auto };
+    if (!item.text) return null;
+    state.reviews.push(item);
+    save(); renderReviews(); renderStats();
+    return item;
+  }
+
+  function applyOrganizedData(data = {}) {
+    const tasks = Array.isArray(data.tasks) ? data.tasks : [];
+    const completedTasks = Array.isArray(data.completedTasks) ? data.completedTasks : [];
+    const settings = Array.isArray(data.settings) ? data.settings : [];
+    const scenarios = Array.isArray(data.scenarios) ? data.scenarios : [];
+
+    const taskKeys = new Set(state.tasks.map(t => normalizeText(t.text)));
+    for (const t of tasks) {
+      const text = String(t?.text || '').trim();
+      const key = normalizeText(text);
+      if (!text || taskKeys.has(key)) continue;
+      state.tasks.push({ id: uid(), text, done: false, streamHidden: !!t.streamHidden, createdAt: nowIso() });
+      taskKeys.add(key);
+    }
+
+    for (const t of completedTasks) {
+      const text = String(t?.text || '').trim();
+      if (!text) continue;
+      const key = normalizeText(text);
+      const existing = state.tasks.find(item => normalizeText(item.text) === key);
+      if (existing) {
+        existing.done = true;
+        if (t.streamHidden) existing.streamHidden = true;
+      } else {
+        state.tasks.push({ id: uid(), text, done: true, streamHidden: !!t.streamHidden, createdAt: nowIso() });
+      }
+    }
+
+    const settingKeys = new Set(state.settings.map(s => normalizeText([s.category, s.label, s.value].join('|'))));
+    for (const s of settings) {
+      const category = String(s?.category || '\u8a2d\u5b9a').trim();
+      const label = String(s?.label || '').trim();
+      const value = String(s?.value || '').trim();
+      const key = normalizeText([category, label, value].join('|'));
+      if (!label || !value || settingKeys.has(key)) continue;
+      state.settings.push({ id: uid(), category, label, value, streamHidden: s.streamHidden !== false, createdAt: nowIso() });
+      settingKeys.add(key);
+    }
+
+    const scenarioKeys = new Set(state.scenarios.map(s => normalizeText([s.title, s.body].join('|'))));
+    for (const s of scenarios) {
+      const title = String(s?.title || '').trim();
+      const body = String(s?.body || '').trim();
+      const key = normalizeText([title, body].join('|'));
+      if (!title || !body || scenarioKeys.has(key)) continue;
+      state.scenarios.push({ id: uid(), title, body, streamHidden: s.streamHidden !== false, createdAt: nowIso() });
+      scenarioKeys.add(key);
+    }
+
+    save(); renderTasks(); renderSettings(); renderScenarios(); renderStats();
+  }
+
+  function markMessageOrganized(id) {
+    const item = state.messages.find(m => m.id === id);
+    if (!item) return;
+    item.organized = true;
+    save(); renderChat();
+  }
+
+  window.GameDevWorkspace = {
+    getState: workspaceSnapshot,
+    addMessage: addWorkspaceMessage,
+    addReview: addWorkspaceReview,
+    applyOrganized: applyOrganizedData,
+    markMessageOrganized,
+    publish: publishPublic
+  };
+
   function generateReview() {
     const confirmed = state.messages.filter(m => m.confirmed).length;
     const newConfirmed = Math.max(0, confirmed - (state.lastReviewConfirmedCount || 0));
@@ -239,9 +339,9 @@
     e.preventDefault();
     const text = els.chatInput.value.trim();
     if (!text) return;
-    state.messages.push({ id: uid(), author: els.chatAuthor.value, text, streamHidden: els.chatHidden.checked, confirmed: false, createdAt: nowIso() });
+    addWorkspaceMessage('user', text, els.chatHidden.checked);
     els.chatInput.value = ''; els.chatHidden.checked = false; typingDraft = false;
-    save(); renderChat(); renderStats();
+    publishPublic();
   });
 
   els.chatInput.addEventListener('input', () => {
@@ -303,7 +403,14 @@
     const find = list => list.find(x => x.id === id);
     const remove = list => list.filter(x => x.id !== id);
 
-    if (action === 'confirm-message') { const item = find(state.messages); if (item) item.confirmed = !item.confirmed; }
+    if (action === 'confirm-message') {
+      const item = find(state.messages);
+      if (item) {
+        item.confirmed = !item.confirmed;
+        if (!item.confirmed) item.organized = false;
+        if (item.confirmed) setTimeout(() => window.GameDevAI?.organizeMessage?.(item), 0);
+      }
+    }
     if (action === 'hide-message') { const item = find(state.messages); if (item) item.streamHidden = !item.streamHidden; }
     if (action === 'delete-message') state.messages = remove(state.messages);
     if (action === 'hide-review') { const item = find(state.reviews); if (item) item.streamHidden = !item.streamHidden; }
