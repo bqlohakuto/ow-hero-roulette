@@ -94,3 +94,30 @@ Talk Coachの60秒警告1回につき、SQUAT BARへスクワット10回のペ�
 7. iPhoneのSQUAT BAR → 設定 → Talk Coach連携へ貼り付けて保存
 
 Firebase configには `databaseURL` が必要です。
+
+
+## Game Dev Workspace
+
+Quick Deckに、ゲーム制作と配信を同じデータで管理する `GAME DEV` を追加しています。
+
+- `game-dev.html` 制作画面
+- 制作チャットの本文はOBSへ送らず、伏せ字の形だけを公開
+- 各メッセージ / タスク / 評価に配信除外フラグ
+- タスク完了率から制作進捗を表示
+- 設定リスト / シナリオ保管
+- `BroadcastChannel` + `localStorage` でOBS表示と同期
+- 公開用状態は `quickDeckGameDevPublicV1` に分離
+
+### OBS表示
+
+Quick DeckをOBSのCustom Browser Dockで開き、`game-dev.html` を制作画面として使用します。
+Browser Sourceには同一オリジンの `game-dev-overlay.html` を指定します。
+
+OBS表示には以下だけが出ます。
+
+- 伏せ字化された制作チャット
+- 公開可能な評価コメント
+- 公開可能なタスク
+- 章名と進捗率
+
+`🔒 配信非表示` にした項目は公開用データから除外されます。
