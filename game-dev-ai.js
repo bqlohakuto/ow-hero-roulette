@@ -3,6 +3,7 @@
 
   const $ = selector => document.querySelector(selector);
   const workspace = () => window.GameDevWorkspace;
+  const AUTO_REVIEW_KEY = 'quickDeckGameDevAutoReviewV1';
 
   const els = {
     aiStatus: $('#aiStatus'),
@@ -10,6 +11,7 @@
     aiConnectionTitle: $('#aiConnectionTitle'),
     aiConnectionDetail: $('#aiConnectionDetail'),
     aiReconnectBtn: $('#aiReconnectBtn'),
+    autoReviewToggle: $('#autoReviewToggle'),
     aiSendBtn: $('#aiSendBtn'),
     generateReviewBtn: $('#generateReviewBtn'),
     chatInput: $('#chatInput'),
@@ -168,6 +170,7 @@
       ws.applyOrganized(data.organized || {});
       ws.markMessageOrganized(message.id);
       setStatus('整理完了', 'ok');
+      if (els.autoReviewToggle?.checked) await requestReview();
     } catch (error) {
       setStatus('整理エラー', 'warn');
       console.error('[GAME DEV organize]', error);
@@ -221,6 +224,14 @@
   });
 
   els.aiReconnectBtn?.addEventListener('click', checkStatus);
+
+  if (els.autoReviewToggle) {
+    const saved = localStorage.getItem(AUTO_REVIEW_KEY);
+    els.autoReviewToggle.checked = saved !== 'false';
+    els.autoReviewToggle.addEventListener('change', () => {
+      localStorage.setItem(AUTO_REVIEW_KEY, String(els.autoReviewToggle.checked));
+    });
+  }
 
   els.generateReviewBtn?.addEventListener('click', event => {
     if (!status.online || !status.configured) return;
