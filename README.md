@@ -121,3 +121,23 @@ OBS表示には以下だけが出ます。
 - 章名と進捗率
 
 `🔒 配信非表示` にした項目は公開用データから除外されます。
+
+
+### AI制作チャット
+
+GAME DEVのAI機能は、APIキーをGitHub Pagesやブラウザへ埋め込まず、配信PC上のローカルサーバーからOpenAI Responses APIへ接続します。
+
+1. Node.js 20以降をインストール
+2. `.env.example` を `.env` にコピー
+3. `.env` の `OPENAI_API_KEY` を設定
+4. `start-game-dev.bat` を実行
+5. 制作画面は `http://127.0.0.1:4173/game-dev.html`
+6. OBS Browser Sourceは `http://127.0.0.1:4173/game-dev-overlay.html`
+
+標準モデルは `gpt-6-luna` です。`.env` の `OPENAI_MODEL` で変更できます。
+
+AI制作チャットでは、ユーザー入力とAI回答の本文はOBSへ送らず、公開用の伏せ字データだけを同期します。
+「確定事項にする」を押したメッセージはAIが解析し、タスク・設定・シナリオへ重複を避けながら整理します。
+「現在の進捗を評価」は、制作データ全体を内部で参照しつつ、謎の答え・固有の秘密・具体的な台詞を出さない配信用レビューを生成します。
+
+OpenAI APIの利用料金はChatGPTの契約とは別管理です。
