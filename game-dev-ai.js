@@ -155,10 +155,7 @@
 
   async function organizeMessage(message) {
     if (!message?.id || message.organized || organizing.has(message.id)) return;
-    if (!status.online || !status.configured) {
-      await checkStatus();
-      if (!status.online || !status.configured) return;
-    }
+    if (!status.online || !status.configured) return;
 
     const ws = workspace();
     if (!ws) return;
