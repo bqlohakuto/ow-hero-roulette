@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#0d1425" />
+  <title>Quick Deck | GAME DEV</title>
+  <link rel="stylesheet" href="game-dev.css" />
+</head>
+<body>
+  <div class="gd-bg" aria-hidden="true"></div>
+  <main class="gd-shell">
+    <header class="gd-header">
+      <div class="gd-title-wrap">
+        <a class="gd-back" href="index.html">← QUICK DECK</a>
+        <div>
+          <p class="gd-kicker">GAME DEVELOPMENT WORKSPACE</p>
+          <h1>制作 & 配信</h1>
+          <p class="gd-subtitle">制作内容を一元管理し、OBSには安全な公開データだけを送信</p>
+        </div>
+      </div>
+      <div class="gd-header-actions">
+        <span id="saveState" class="gd-save-state">保存済み</span>
+        <a class="gd-button gd-button--ghost" href="game-dev-overlay.html" target="_blank" rel="noreferrer">OBS表示を開く</a>
+      </div>
+    </header>
+
+    <section class="gd-project-bar">
+      <label>
+        <span>PROJECT</span>
+        <input id="projectName" type="text" value="最後の謎が解けるまで" maxlength="60" />
+      </label>
+      <label>
+        <span>SECTION</span>
+        <input id="sectionName" type="text" value="第5章" maxlength="30" />
+      </label>
+      <div class="gd-progress-wrap">
+        <div><span>PROGRESS</span><strong id="progressText">0%</strong></div>
+        <div class="gd-progress"><i id="progressBar"></i></div>
+      </div>
+      <label class="gd-switch">
+        <input id="streamEnabled" type="checkbox" checked />
+        <span></span>
+        <b>配信同期</b>
+      </label>
+    </section>
+
+    <nav class="gd-tabs" aria-label="制作機能">
+      <button class="gd-tab active" data-panel="chat" type="button">制作チャット</button>
+      <button class="gd-tab" data-panel="review" type="button">評価チャット</button>
+      <button class="gd-tab" data-panel="tasks" type="button">タスクリスト <em id="taskCountBadge">0</em></button>
+      <button class="gd-tab" data-panel="settings" type="button">設定リスト</button>
+      <button class="gd-tab" data-panel="scenario" type="button">シナリオ</button>
+    </nav>
+
+    <section class="gd-workspace">
+      <div class="gd-main">
+        <section class="gd-panel active" data-panel-content="chat">
+          <header class="gd-panel-head">
+            <div>
+              <p>PRODUCTION CHAT</p>
+              <h2>制作チャット</h2>
+            </div>
+            <div class="gd-legend"><span>🔒 配信除外</span><span>◆ 確定事項</span></div>
+          </header>
+          <div id="chatList" class="gd-chat-list"></div>
+          <form id="chatForm" class="gd-composer">
+            <div class="gd-composer-row">
+              <label class="gd-select-wrap">話者
+                <select id="chatAuthor">
+                  <option value="user">白兎</option>
+                  <option value="assistant">AI</option>
+                </select>
+              </label>
+              <label class="gd-check"><input id="chatHidden" type="checkbox" /> <span>🔒 このメッセージを配信から完全除外</span></label>
+            </div>
+            <textarea id="chatInput" rows="4" placeholder="制作内容を入力。配信画面では本文を表示せず、伏せ字だけが動きます。"></textarea>
+            <div class="gd-composer-actions">
+              <small>※ OBSには入力本文を送信しません。</small>
+              <button class="gd-button" type="submit">送信</button>
+            </div>
+          </form>
+        </section>
+
+        <section class="gd-panel" data-panel-content="review">
+          <header class="gd-panel-head">
+            <div><p>EDITOR REVIEW</p><h2>評価チャット</h2></div>
+            <button id="generateReviewBtn" class="gd-button" type="button">現在の進捗を評価</button>
+          </header>
+          <div id="reviewList" class="gd-review-list"></div>
+          <form id="reviewForm" class="gd-inline-form">
+            <textarea id="reviewInput" rows="3" placeholder="配信に表示してよい評価コメントを追加"></textarea>
+            <label class="gd-check"><input id="reviewHidden" type="checkbox" /> <span>配信非表示</span></label>
+            <button class="gd-button" type="submit">評価を追加</button>
+          </form>
+        </section>
+
+        <section class="gd-panel" data-panel-content="tasks">
+          <header class="gd-panel-head"><div><p>PROJECT TASKS</p><h2>タスクリスト</h2></div></header>
+          <form id="taskForm" class="gd-row-form">
+            <input id="taskInput" type="text" placeholder="新しいタスク" maxlength="100" required />
+            <label class="gd-check"><input id="taskHidden" type="checkbox" /> <span>🔒 配信非表示</span></label>
+            <button class="gd-button" type="submit">追加</button>
+          </form>
+          <div class="gd-two-column-list">
+            <div><h3>残りのタスク</h3><div id="todoList" class="gd-list"></div></div>
+            <div><h3>完了したタスク</h3><div id="doneList" class="gd-list"></div></div>
+          </div>
+        </section>
+
+        <section class="gd-panel" data-panel-content="settings">
+          <header class="gd-panel-head"><div><p>PROJECT SETTINGS</p><h2>設定リスト</h2></div></header>
+          <form id="settingForm" class="gd-setting-form">
+            <input id="settingCategory" type="text" placeholder="分類 例：人物" maxlength="30" />
+            <input id="settingLabel" type="text" placeholder="項目名" maxlength="60" required />
+            <textarea id="settingValue" rows="2" placeholder="確定した設定" required></textarea>
+            <label class="gd-check"><input id="settingHidden" type="checkbox" checked /> <span>🔒 配信非表示</span></label>
+            <button class="gd-button" type="submit">設定を追加</button>
+          </form>
+          <div id="settingsList" class="gd-card-list"></div>
+        </section>
+
+        <section class="gd-panel" data-panel-content="scenario">
+          <header class="gd-panel-head"><div><p>SCENARIO ARCHIVE</p><h2>シナリオ</h2></div></header>
+          <form id="scenarioForm" class="gd-setting-form">
+            <input id="scenarioTitle" type="text" placeholder="シーン名 / 章名" maxlength="80" required />
+            <textarea id="scenarioBody" rows="8" placeholder="確定したシナリオ本文"></textarea>
+            <label class="gd-check"><input id="scenarioHidden" type="checkbox" checked /> <span>🔒 配信非表示</span></label>
+            <button class="gd-button" type="submit">シナリオを保存</button>
+          </form>
+          <div id="scenarioList" class="gd-card-list"></div>
+        </section>
+      </div>
+
+      <aside class="gd-side">
+        <section class="gd-side-card">
+          <p class="gd-side-kicker">STREAM SAFETY</p>
+          <h3>配信出力</h3>
+          <dl>
+            <div><dt>制作チャット</dt><dd>本文を伏せ字化</dd></div>
+            <div><dt>🔒チェック</dt><dd>完全除外</dd></div>
+            <div><dt>評価</dt><dd>公開可能な文のみ</dd></div>
+            <div><dt>タスク</dt><dd>公開可能な項目のみ</dd></div>
+          </dl>
+        </section>
+        <section class="gd-side-card">
+          <p class="gd-side-kicker">CURRENT STATUS</p>
+          <h3 id="sideSection">第5章</h3>
+          <div class="gd-stat"><span>未完了</span><strong id="sideTodo">0</strong></div>
+          <div class="gd-stat"><span>完了</span><strong id="sideDone">0</strong></div>
+          <div class="gd-stat"><span>確定事項</span><strong id="sideConfirmed">0</strong></div>
+        </section>
+        <section class="gd-side-card gd-side-card--preview">
+          <p class="gd-side-kicker">OBS PREVIEW</p>
+          <h3>配信にはこう見える</h3>
+          <div id="miniPreview" class="gd-mini-preview"></div>
+        </section>
+      </aside>
+    </section>
+  </main>
+  <script src="game-dev.js"></script>
+</body>
+</html>
