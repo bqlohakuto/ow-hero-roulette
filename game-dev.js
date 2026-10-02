@@ -44,6 +44,7 @@
     taskForm: $('#taskForm'), taskInput: $('#taskInput'), taskHidden: $('#taskHidden'), todoList: $('#todoList'), doneList: $('#doneList'), taskCountBadge: $('#taskCountBadge'),
     settingForm: $('#settingForm'), settingCategory: $('#settingCategory'), settingLabel: $('#settingLabel'), settingValue: $('#settingValue'), settingHidden: $('#settingHidden'), settingsList: $('#settingsList'),
     scenarioForm: $('#scenarioForm'), scenarioTitle: $('#scenarioTitle'), scenarioBody: $('#scenarioBody'), scenarioHidden: $('#scenarioHidden'), scenarioList: $('#scenarioList'),
+    pasteFromChatGPT: $('#pasteFromChatGPT'), pasteHidden: $('#pasteHidden'), pasteAsAiBtn: $('#pasteAsAiBtn'),
     sideSection: $('#sideSection'), sideTodo: $('#sideTodo'), sideDone: $('#sideDone'), sideConfirmed: $('#sideConfirmed'), miniPreview: $('#miniPreview')
   };
 
@@ -357,6 +358,14 @@
     state.reviews.push({ id: uid(), text, streamHidden: els.reviewHidden.checked, createdAt: nowIso(), auto: false });
     els.reviewInput.value = ''; els.reviewHidden.checked = false;
     save(); renderReviews();
+  });
+
+  els.pasteAsAiBtn?.addEventListener('click', () => {
+    const text = els.pasteFromChatGPT?.value.trim();
+    if (!text) return;
+    addWorkspaceMessage('assistant', text, !!els.pasteHidden?.checked);
+    els.pasteFromChatGPT.value = '';
+    if (els.pasteHidden) els.pasteHidden.checked = false;
   });
   els.generateReviewBtn.addEventListener('click', generateReview);
 
