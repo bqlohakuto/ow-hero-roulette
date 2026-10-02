@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Quick Deck | GAME DEV Overlay</title>
+  <link rel="stylesheet" href="game-dev-overlay.css" />
+</head>
+<body>
+  <main class="overlay-shell">
+    <header class="overlay-header">
+      <div>
+        <p>GAME DEVELOPMENT</p>
+        <h1 id="overlayProject">制作中</h1>
+      </div>
+      <div class="overlay-progress-wrap">
+        <span id="overlaySection">—</span>
+        <strong id="overlayProgressText">0%</strong>
+        <div class="overlay-progress"><i id="overlayProgressBar"></i></div>
+      </div>
+    </header>
+
+    <div class="overlay-grid">
+      <section class="overlay-card overlay-chat-card">
+        <header><span>PRODUCTION CHAT</span><b id="overlayLiveState">LIVE</b></header>
+        <div id="overlayChat" class="overlay-chat"></div>
+      </section>
+
+      <aside class="overlay-side">
+        <section class="overlay-card overlay-review-card">
+          <header><span>AI REVIEW</span><b>EDITOR</b></header>
+          <div id="overlayReview" class="overlay-review"></div>
+        </section>
+
+        <section class="overlay-card overlay-task-card">
+          <header><span>TASK</span><b id="overlayTaskCount">0</b></header>
+          <div id="overlayTasks" class="overlay-tasks"></div>
+        </section>
+      </aside>
+    </div>
+  </main>
+  <script src="game-dev-overlay.js"></script>
+</body>
+</html>
