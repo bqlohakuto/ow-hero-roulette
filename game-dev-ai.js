@@ -125,8 +125,10 @@
     if (els.chatHidden) els.chatHidden.checked = false;
 
     sending = true;
-    els.aiSendBtn.disabled = true;
-    els.aiSendBtn.textContent = 'AI応答中…';
+    if (els.aiSendBtn) {
+      els.aiSendBtn.disabled = true;
+      els.aiSendBtn.textContent = 'AI応答中…';
+    }
     setStatus('AI THINKING', 'busy');
     if (els.chatHint) els.chatHint.textContent = 'AIが制作内容を確認しています。OBSには本文を送りません。';
 
@@ -144,8 +146,10 @@
       setStatus('AI ERROR', 'warn');
     } finally {
       sending = false;
-      els.aiSendBtn.disabled = false;
-      els.aiSendBtn.textContent = 'AIに送信';
+      if (els.aiSendBtn) {
+        els.aiSendBtn.disabled = false;
+        els.aiSendBtn.textContent = 'AIに送信';
+      }
     }
   }
 
@@ -216,18 +220,12 @@
   }
 
   els.aiSendBtn?.addEventListener('click', sendChat);
-  els.chatInput?.addEventListener('keydown', event => {
-    if ((event.ctrlKey || event.metaKey) && event.key === 'Enter') {
-      event.preventDefault();
-      sendChat();
-    }
-  });
 
   els.aiReconnectBtn?.addEventListener('click', checkStatus);
 
   if (els.autoReviewToggle) {
     const saved = localStorage.getItem(AUTO_REVIEW_KEY);
-    els.autoReviewToggle.checked = saved !== 'false';
+    els.autoReviewToggle.checked = saved === 'true';
     els.autoReviewToggle.addEventListener('change', () => {
       localStorage.setItem(AUTO_REVIEW_KEY, String(els.autoReviewToggle.checked));
     });
@@ -248,5 +246,5 @@
     getStatus: () => ({ ...status })
   };
 
-  checkStatus();
+  renderConnection();
 })();
